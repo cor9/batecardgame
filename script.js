@@ -220,7 +220,7 @@ shuffleDeck(deck) {
     
     // Update instruction text based on mode
     const modeText = mode === 'group' ? 'group' : 'solo';
-    this.instruction.textContent = `Click "Draw Card" to get your first ${modeText} command!`;
+  this.instruction.textContent = "Click \"Draw Card\" to get your first " + modeText + " command!";
     
     // Update deck count
     this.deckCount.textContent = this.deck.length;
