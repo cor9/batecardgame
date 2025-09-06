@@ -28,24 +28,18 @@
         </div>
         
         <!-- Game Screen (hidden initially) -->
-        <div id="gameScreen" class="game-screen hidden">
-            <div id="card" class="card" style="display: none;">
-                <img id="cardImage" src="" alt="Playing Card" style="width: 100%; height: 100%; object-fit: contain; border-radius: 15px;">
-            </div>
-            
-            <div id="instruction" class="instruction hidden">
-                Click "Draw Card" to get your first command!
-            </div>
-            
-            <button id="drawBtn" class="draw-btn">Draw Card</button>
-            
-            <div class="stats">
-                <div>Cards drawn: <span id="cardCount">0</span></div>
-                <div>Deck remaining: <span id="deckCount">104</span></div>
-            </div>
-            
-            <button id="backToMode" class="back-btn">Change Mode</button>
+     <div id="gameScreen" class="game-screen hidden">
+    <!-- Add this new game info section -->
+    <div id="gameInfo" class="game-info-box">
+        <h3 id="gameInfoTitle">Game Rules</h3>
+        <div id="gameInfoContent">
+            <!-- Content will be filled by JavaScript -->
         </div>
+    </div>
+    
+    <div id="card" class="card" style="display: none;">
+        <img id="cardImage" src="" alt="Playing Card" style="width: 100%; height: 100%; object-fit: contain; border-radius: 15px;">
+    </div>
         
         <!-- Game Overview Modal -->
         <div id="gameOverview" class="game-overview" style="display: none;">
