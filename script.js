@@ -25,7 +25,7 @@ class CardGame
                          value: value,                         
                          suit: suit,                         
                          suitName: suitNames[suitIndex],                         
-                         imagePath: "cards/" + suit.toLowerCase() + "/" + value + ".png"                     
+                        imagePath: "cards/" + suit + "/" + value + ".png"              
                      });                 
                  });             
              });         
@@ -53,7 +53,53 @@ class CardGame
              ],             
              '3': [                 
                  "Jerk the guy to the right slow and steady for 30 seconds",                 
-                 "Jerk slow and steady for 30 seconds"             ],             '4': [                 "Choose another to edge with you and focus on cockhead for 20 seconds",                 "Edge your cockhead for 20 seconds"             ],             '5': [                 "Everyone jerks FAST and HARD for 20 seconds",                 "Jerk your dick fast and hard for 15 seconds"             ],             '6': [                 "Truth - choose someone to answer a truth of your choosing",                 "Wiggle penis, slap against hand 9 times"             ],             '7': [                 "Dare - choose someone to do a dare of your choosing",                 "On all fours, slap ass and jerk for 35 seconds medium pace"             ],             '8': [                 "Bate - start jerking and you can’t stop until the next 8 comes out",                 "Edge, Eat Precum"             ],             '9': [                 "Post a selfie - take a pic of your dick and upload it somewhere online",                 "Make a 30 second wank video"             ],             '10': [                 "Be a fitness instructor and give a command for two sets of ten (jumping jacks, situps, etc)",                 "10 jumping jacks and 2 edges"             ],             'J': [                 "Jerk off bud - whenever you have to jerk, your bud has to as well. Lasts until the next J is chosen.",                 "Corkscrew jerk for 20 seconds"             ],             'Q': [                 "Jerk off bitch - whenever you get chosen to jerk off your bitch has to do it instead. Lasts until the next Q is chosen",                 "Feather touch, slow movements of arousal"             ],             'K': [                 "Everyone except you has to jerk off for 10 seconds",                 "Your favorite stroke for 45 seconds"             ]         };     }      initializeElements() {         
+                 "Jerk slow and steady for 30 seconds"             
+             ],            
+             '4': [                
+                 "Choose another to edge with you and focus on cockhead for 20 seconds",                
+                 "Edge your cockhead for 20 seconds"            
+             ],             
+             '5': [                 
+                 "Everyone jerks FAST and HARD for 20 seconds",                 
+                 "Jerk your dick fast and hard for 15 seconds"            
+             ],            
+             '6': [                 
+                 "Truth - choose someone to answer a truth of your choosing",                
+                 "Wiggle penis, slap against hand 9 times"             
+             ],            
+             '7': [                
+                 "Dare - choose someone to do a dare of your choosing",                 
+                 "On all fours, slap ass and jerk for 35 seconds medium pace"             
+             ],             
+             '8': [                
+                 "Bate - start jerking and you can’t stop until the next 8 comes out",                
+                 "Edge, Eat Precum"          
+             ],            
+             '9': [                
+                 "Post a selfie - take a pic of your dick and upload it somewhere online",               
+                 "Make a 30 second wank video"           
+             ],           
+             '10': [                 
+                 "Be a fitness instructor and give a command for two sets of ten (jumping jacks, situps, etc)",                
+                 "10 jumping jacks and 2 edges"             
+             ],             
+             'J': [                 
+                 "Jerk off bud - whenever you have to jerk, your bud has to as well. Lasts until the next J is chosen.",                 
+                 "Corkscrew jerk for 20 seconds"            
+             ],            
+             'Q': [                
+                 "Jerk off bitch - whenever you get chosen to jerk off your bitch has to do it instead. Lasts until the next Q is chosen",                 
+                 "Feather touch, slow movements of arousal"             
+             ],             
+             'K': [                
+                 "Everyone except you has to jerk off for 10 seconds",                
+                 "Your favorite stroke for 45 seconds"            
+             ]        
+         };    
+     }      
+        
+        initializeElements() {         
+      
          // Mode selection elements         
          this.modeSelection = document.getElementById('modeSelection');         
          this.gameScreen = document.getElementById('gameScreen');         
