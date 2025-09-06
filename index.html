@@ -30,7 +30,8 @@
         <!-- Game Screen (hidden initially) -->
         <div id="gameScreen" class="game-screen hidden">
             <div id="card" class="card" style="display: none;">
-                <img id="cardImage" src="" alt="Playing Card" style="width: 100%; height: 100%; object-fit: contain;">
+                <div id="cardValue" class="card-value"></div>
+                <div id="cardSuit" class="card-suit"></div>
             </div>
             
             <div id="instruction" class="instruction hidden">
@@ -46,7 +47,19 @@
             
             <button id="backToMode" class="back-btn">Change Mode</button>
         </div>
-
+        
+        <!-- Game Overview Modal -->
+        <div id="gameOverview" class="game-overview" style="display: none;">
+            <div class="overview-header">
+                <h3 id="overviewTitle">Game Overview</h3>
+                <button id="closeOverview" class="close-btn">×</button>
+            </div>
+            <div id="overviewText" class="overview-content">
+                <!-- Content filled by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
