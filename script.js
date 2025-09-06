@@ -10,7 +10,7 @@ class CardGame {
     }
 
     createDeck() {
-        const suits = ['♠', '♥', '♦', '♣'];
+        const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
         
@@ -22,7 +22,8 @@ class CardGame {
                     deck.push({
                         value: value,
                         suit: suit,
-                        suitName: suitNames[suitIndex]
+                        suitName: suitNames[suitIndex],
+                        imagePath: `cards/${suit}/${value}.png`
                     });
                 });
             });
@@ -135,8 +136,7 @@ class CardGame {
         
         // Regular game elements
         this.cardElement = document.getElementById('card');
-        this.cardValue = document.getElementById('cardValue');
-        this.cardSuit = document.getElementById('cardSuit');
+        this.cardImage = document.getElementById('cardImage');
         this.instruction = document.getElementById('instruction');
         this.drawBtn = document.getElementById('drawBtn');
         this.cardCount = document.getElementById('cardCount');
@@ -195,8 +195,8 @@ class CardGame {
         
         setTimeout(() => {
             // Update card display
-            this.cardValue.textContent = card.value;
-            this.cardSuit.textContent = card.suit;
+            this.cardImage.src = card.imagePath;
+            this.cardImage.alt = `${card.value} of ${card.suit}`;
             this.cardElement.className = `card ${card.suitName}`;
             this.cardElement.style.display = 'flex';
 
