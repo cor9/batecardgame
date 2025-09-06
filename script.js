@@ -127,12 +127,8 @@ class CardGame {
         // Mode selection elements
         this.modeSelection = document.getElementById('modeSelection');
         this.gameScreen = document.getElementById('gameScreen');
-        this.danceDenialScreen = document.getElementById('danceDenialScreen');
         this.groupModeBtn = document.getElementById('groupMode');
         this.soloModeBtn = document.getElementById('soloMode');
-        this.danceDenialModeBtn = document.getElementById('danceDenialMode');
-        this.backToModeBtn = document.getElementById('backToMode');
-        this.backToModeDanceBtn = document.getElementById('backToModeDance');
         
         // Regular game elements
         this.cardElement = document.getElementById('card');
@@ -142,37 +138,17 @@ class CardGame {
         this.cardCount = document.getElementById('cardCount');
         this.deckCount = document.getElementById('deckCount');
         
-        // Dance Denial elements
-        this.danceCardElement = document.getElementById('danceCard');
-        this.danceCardValue = document.getElementById('danceCardValue');
-        this.danceCardSuit = document.getElementById('danceCardSuit');
-        this.drawDanceCardBtn = document.getElementById('drawDanceCard');
-        this.readyBtn = document.getElementById('readyBtn');
-        this.danceBtn = document.getElementById('danceBtn');
-        this.currentPlayer = document.getElementById('currentPlayer');
-        this.playerInstructions = document.getElementById('playerInstructions');
-        this.currentPhase = document.getElementById('currentPhase');
-        this.phaseDescription = document.getElementById('phaseDescription');
-        this.danceCardCount = document.getElementById('danceCardCount');
-        this.danceDeckCount = document.getElementById('danceDeckCount');
-        this.phaseNumber = document.getElementById('phaseNumber');
     }
 
     bindEvents() {
         // Mode selection events
         this.groupModeBtn.addEventListener('click', () => this.selectMode('group'));
         this.soloModeBtn.addEventListener('click', () => this.selectMode('solo'));
-        this.danceDenialModeBtn.addEventListener('click', () => this.selectMode('danceDenial'));
-        this.backToModeBtn.addEventListener('click', () => this.backToModeSelection());
-        this.backToModeDanceBtn.addEventListener('click', () => this.backToModeSelection());
+        // Only bind events for elements that exist
         
         // Regular game events
         this.drawBtn.addEventListener('click', () => this.drawCard());
         
-        // Dance Denial events
-        this.drawDanceCardBtn.addEventListener('click', () => this.drawDanceCard());
-        this.readyBtn.addEventListener('click', () => this.playerReady());
-        this.danceBtn.addEventListener('click', () => this.playerDance());
     }
 
     drawCard() {
