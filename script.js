@@ -1,4 +1,3 @@
-```javascript
 class CardGame {
     constructor() {
         this.deck = null; // Deck will be created after mode selection
@@ -246,4 +245,3 @@ backToModeSelection() {
 document.addEventListener('DOMContentLoaded', () => {
     new CardGame();
 });
-```
