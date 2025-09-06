@@ -96,29 +96,36 @@ shuffleDeck(deck) {
     }
 
     initializeElements() {
-        // Mode selection elements
-        this.modeSelection = document.getElementById('modeSelection');
-        this.gameScreen = document.getElementById('gameScreen');
-        this.groupModeBtn = document.getElementById('groupMode');
-        this.soloModeBtn = document.getElementById('soloMode');
-        
-        // Regular game elements
-        this.cardElement = document.getElementById('card');
-        this.cardImage = document.getElementById('cardImage');
-        this.instruction = document.getElementById('instruction');
-        this.drawBtn = document.getElementById('drawBtn');
-        this.cardCount = document.getElementById('cardCount');
-        this.deckCount = document.getElementById('deckCount');
-    }
+    // Mode selection elements
+    this.modeSelection = document.getElementById('modeSelection');
+    this.gameScreen = document.getElementById('gameScreen');
+    this.groupModeBtn = document.getElementById('groupMode');
+    this.soloModeBtn = document.getElementById('soloMode');
+    
+    // Add this line:
+    this.backToModeBtn = document.getElementById('backToMode');
+    
+    // Regular game elements
+    this.cardElement = document.getElementById('card');
+    this.cardImage = document.getElementById('cardImage');
+    this.instruction = document.getElementById('instruction');
+    this.drawBtn = document.getElementById('drawBtn');
+    this.cardCount = document.getElementById('cardCount');
+    this.deckCount = document.getElementById('deckCount');
+}
 
-    bindEvents() {
-        // Mode selection events
-        this.groupModeBtn.addEventListener('click', () => this.selectMode('group'));
-        this.soloModeBtn.addEventListener('click', () => this.selectMode('solo'));
-        
-        // Regular game events
-        this.drawBtn.addEventListener('click', () => this.drawCard());
-    }
+  bindEvents() {
+    // Mode selection events
+    this.groupModeBtn.addEventListener('click', () => this.selectMode('group'));
+    this.soloModeBtn.addEventListener('click', () => this.selectMode('solo'));
+    
+    // Regular game events
+    this.drawBtn.addEventListener('click', () => this.drawCard());
+    
+    // Add this line for the back button:
+    this.backToModeBtn = document.getElementById('backToMode');
+    this.backToModeBtn.addEventListener('click', () => this.backToModeSelection());
+}
 
     drawCard() {
         if (this.deck.length === 0) {
