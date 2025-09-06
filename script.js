@@ -252,7 +252,7 @@ updateGameInfo(mode) {
             <p>Jerking and Edging - follow solo masturbation instructions!</p>
             <p>Deck: 52 cards (1 full deck)</p>
             <p>Stroke yourself and enjoy!</p>
-        `;
+        ;
     }
 }
 // Initialize the game when page loads
