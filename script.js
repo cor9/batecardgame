@@ -1,36 +1,29 @@
+```javascript
 class CardGame {
     constructor() {
-        this.deck = this.createDeck();
+        this.deck = null; // Deck will be created after mode selection
         this.drawnCount = 0;
         this.instructions = this.createInstructions();
-        this.gameMode = null; // 'group', 'solo', or 'danceDenial'
+        this.gameMode = null; // 'group' or 'solo'
         this.initializeElements();
         this.bindEvents();
     }
 
-    createDeck() {
+    createDeck(numDecks) {
         const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
-
-            // Add one joker
-        deck.push({
-            value: 'JOKER',
-            suit: '🃏',
-            suitName: 'joker',
-            number: 0
-        });
         
         let deck = [];
-        // Create two complete decks (104 cards total)
-        for (let deckNum = 0; deckNum < 2; deckNum++) {
+        // Create specified number of complete decks
+        for (let deckNum = 0; deckNum < numDecks; deckNum++) {
             suits.forEach((suit, suitIndex) => {
                 values.forEach(value => {
                     deck.push({
                         value: value,
                         suit: suit,
                         suitName: suitNames[suitIndex],
-                        imagePath: `cards/${suit}/${value}.png`
+                        imagePath: `cards/${suit.toLowerCase()}/${value}.png`  // Adjusted to lowercase suit for path
                     });
                 });
             });
@@ -101,15 +94,9 @@ class CardGame {
             'K': [
                 "Everyone except you has to jerk off for 10 seconds",
                 "Your favorite stroke for 45 seconds"
-            ],
-            'JOKER': [
-                "Race to Ruin",
-                "Cum now or Twice before game over"
             ]
         };
-        
     }
-
 
     initializeElements() {
         // Mode selection elements
@@ -125,23 +112,22 @@ class CardGame {
         this.drawBtn = document.getElementById('drawBtn');
         this.cardCount = document.getElementById('cardCount');
         this.deckCount = document.getElementById('deckCount');
-        
     }
 
     bindEvents() {
         // Mode selection events
         this.groupModeBtn.addEventListener('click', () => this.selectMode('group'));
         this.soloModeBtn.addEventListener('click', () => this.selectMode('solo'));
-        // Only bind events for elements that exist
         
         // Regular game events
         this.drawBtn.addEventListener('click', () => this.drawCard());
-        
     }
 
     drawCard() {
         if (this.deck.length === 0) {
             this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
+            this.instruction.classList.remove('hidden');
+            this.instruction.classList.add('visible');
             this.drawBtn.textContent = "Refresh Game";
             this.drawBtn.onclick = () => location.reload();
             return;
@@ -156,6 +142,8 @@ class CardGame {
         do {
             if (this.deck.length === 0) {
                 this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
+                this.instruction.classList.remove('hidden');
+                this.instruction.classList.add('visible');
                 this.drawBtn.textContent = "Refresh Game";
                 this.drawBtn.onclick = () => location.reload();
                 return;
@@ -212,32 +200,32 @@ class CardGame {
             this.cardCount.textContent = this.drawnCount;
             this.deckCount.textContent = this.deck.length;
 
+            // Remove animation class for next draw
+            this.cardElement.classList.remove('flip-animation');
+
         }, 300);
     }
 
     selectMode(mode) {
         this.gameMode = mode;
         
+        // Create deck based on mode
+        const numDecks = mode === 'group' ? 2 : 1;
+        this.deck = this.createDeck(numDecks);
+        
         // Hide mode selection
         this.modeSelection.classList.add('hidden');
         
-        if (mode === 'danceDenial') {
-            // Show Dance Denial screen
-            this.danceDenialScreen.classList.remove('hidden');
-            this.danceDenialScreen.classList.add('visible');
-            this.gameScreen.classList.add('hidden');
-            
-            // Initialize Dance Denial game
-            this.initializeDanceDenialGame();
-        } else {
-            // Show regular game screen
-            this.gameScreen.classList.remove('hidden');
-            this.gameScreen.classList.add('visible');
-            
-            // Update instruction text based on mode
-            const modeText = mode === 'group' ? 'group' : 'solo';
-            this.instruction.textContent = `Click "Draw Card" to get your first ${modeText} command!`;
-        }
+        // Show regular game screen
+        this.gameScreen.classList.remove('hidden');
+        this.gameScreen.classList.add('visible');
+        
+        // Update instruction text based on mode
+        const modeText = mode === 'group' ? 'group' : 'solo';
+        this.instruction.textContent = `Click "Draw Card" to get your first ${modeText} command!`;
+        
+        // Update deck count
+        this.deckCount.textContent = this.deck.length;
     }
 
     backToModeSelection() {
@@ -247,17 +235,17 @@ class CardGame {
         this.modeSelection.classList.remove('hidden');
         
         // Reset game state
-        this.deck = this.createDeck();
+        this.deck = null;
         this.drawnCount = 0;
         this.cardElement.style.display = 'none';
         this.cardCount.textContent = '0';
-        this.deckCount.textContent = '104';
+        this.deckCount.textContent = '0';  // Temporary until mode selected
         this.gameMode = null;
     }
+}
 
 // Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new CardGame();
 });
-
-
+```
