@@ -255,16 +255,6 @@ class CardGame {
         this.gameMode = null;
     }
 
-        
-        // Add one joker
-        deck.push({
-            value: 'JOKER',
-            suit: '🃏',
-            suitName: 'joker',
-            number: 0
-        });
-        
-
 // Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new CardGame();
