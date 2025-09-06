@@ -10,36 +10,35 @@ class CardGame {
     }
 
     createDeck(numDecks) {
-        const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
-        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-        const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
-        
-        let deck = [];
-        // Create specified number of complete decks
-        for (let deckNum = 0; deckNum < numDecks; deckNum++) {
-            suits.forEach((suit, suitIndex) => {
-                values.forEach(value => {
-                    deck.push({
-    value: value,
-    suit: suit,
-    suitName: suitNames[suitIndex],
-    imagePath: `cards/${suit.toLowerCase()}/${value}.png`, // <- Add comma here
-});
+    const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
+    
+    let deck = [];
+    // Create specified number of complete decks
+    for (let deckNum = 0; deckNum < numDecks; deckNum++) {
+        suits.forEach((suit, suitIndex) => {
+            values.forEach(value => {
+                deck.push({
+                    value: value,
+                    suit: suit,
+                    suitName: suitNames[suitIndex],
+                    imagePath: `cards/${suit.toLowerCase()}/${value}.png`,
                 });
             });
-        }
-        
-        return this.shuffleDeck(deck);
+        });
     }
+    
+    return this.shuffleDeck(deck);
+} // <- This closing brace was missing
 
-    shuffleDeck(deck) {
-        for (let i = deck.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [deck[i], deck[j]] = [deck[j], deck[i]];
-        }
-        return deck;
+shuffleDeck(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
     }
-
+    return deck;
+}
     createInstructions() {
         return {
             'A': [
