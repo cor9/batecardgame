@@ -20,11 +20,11 @@ class CardGame {
             suits.forEach((suit, suitIndex) => {
                 values.forEach(value => {
                     deck.push({
-                        value: value,
-                        suit: suit,
-                        suitName: suitNames[suitIndex],
-                        imagePath: `cards/${suit.toLowerCase()}/${value}.png`  // Adjusted to lowercase suit for path
-                    });
+    value: value,
+    suit: suit,
+    suitName: suitNames[suitIndex],
+    imagePath: `cards/${suit.toLowerCase()}/${value}.png`, // <- Add comma here
+});
                 });
             });
         }
