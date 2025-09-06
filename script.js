@@ -23,7 +23,7 @@ class CardGame {
                     value: value,
                     suit: suit,
                     suitName: suitNames[suitIndex],
-                    imagePath: `cards/${suit.toLowerCase()}/${value}.png`,
+                   imagePath: "cards/" + suit.toLowerCase() + "/" + value + ".png",
                 });
             });
         });
