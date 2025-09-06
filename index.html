@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Command</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🃏 Card Command</h1>
+        
+        <!-- Mode Selection Screen -->
+        <div id="modeSelection" class="mode-selection">
+            <h2>Choose Your Game Mode</h2>
+            <div class="mode-buttons">
+                <button id="groupMode" class="mode-btn group-btn">
+                    <div class="mode-icon">👥</div>
+                    <div class="mode-title">Group Game</div>
+                    <div class="mode-description">Play with friends and family</div>
+                </button>
+                <button id="soloMode" class="mode-btn solo-btn">
+                    <div class="mode-icon">🎯</div>
+                    <div class="mode-title">Solo Game</div>
+                    <div class="mode-description">Play by yourself</div>
+                </button>
+                <button id="danceDenialMode" class="mode-btn dance-btn">
+                    <div class="mode-icon">💃</div>
+                    <div class="mode-title">Dance Denial</div>
+                    <div class="mode-description">Two players compete for the right to dance!</div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Game Screen (hidden initially) -->
+        <div id="gameScreen" class="game-screen hidden">
+            <div id="card" class="card" style="display: none;">
+                <div id="cardValue"></div>
+                <div id="cardSuit" class="suit"></div>
+            </div>
+            
+            <div id="instruction" class="instruction hidden">
+                Click "Draw Card" to get your first command!
+            </div>
+            
+            <button id="drawBtn" class="draw-btn">Draw Card</button>
+            
+            <div class="stats">
+                <div>Cards drawn: <span id="cardCount">0</span></div>
+                <div>Deck remaining: <span id="deckCount">104</span></div>
+            </div>
+            
+            <button id="backToMode" class="back-btn">Change Mode</button>
+        </div>
+        
+        <!-- Dance Denial Game Screen (hidden initially) -->
+        <div id="danceDenialScreen" class="dance-denial-screen hidden">
+            <div class="game-info">
+                <h2>💃 Dance Denial</h2>
+                <div class="phase-info">
+                    <div id="currentPhase" class="phase-indicator">Phase 1: Building Tension</div>
+                    <div id="phaseDescription" class="phase-description">Both players stretch together. Dancing is FORBIDDEN!</div>
+                </div>
+            </div>
+            
+            <div class="players-section">
+                <div class="player-info">
+                    <div id="currentPlayer" class="current-player">Player 1's Turn</div>
+                    <div id="playerInstructions" class="player-instructions">Draw a card to begin!</div>
+                </div>
+            </div>
+            
+            <div id="danceCard" class="card" style="display: none;">
+                <div id="danceCardValue"></div>
+                <div id="danceCardSuit" class="suit"></div>
+            </div>
+            
+            <div class="game-controls">
+                <button id="drawDanceCard" class="draw-btn">Draw Card</button>
+                <button id="readyBtn" class="ready-btn hidden">Ready!</button>
+                <button id="danceBtn" class="dance-btn hidden">DANCE! 🕺</button>
+            </div>
+            
+            <div class="dance-stats">
+                <div>Cards drawn: <span id="danceCardCount">0</span></div>
+                <div>Deck remaining: <span id="danceDeckCount">53</span></div>
+                <div>Phase: <span id="phaseNumber">1</span></div>
+            </div>
+            
+            <button id="backToModeDance" class="back-btn">Change Mode</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

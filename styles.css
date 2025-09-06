@@ -1,0 +1,377 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2e2e2e 0%, #3a3a3a 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(70, 70, 70, 0.95);
+    border: 1px solid #888;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    color: #f0f0f0;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    background: linear-gradient(45deg, #00bcd4, #4dd0e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card {
+    width: 150px;
+    height: 210px;
+    margin: 30px auto;
+    background: #555;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid #777;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border-color: #00bcd4;
+}
+
+.card.hearts, .card.diamonds {
+    color: #f44336;
+}
+
+.card.clubs, .card.spades {
+    color: #f0f0f0;
+}
+
+.suit {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.instruction {
+    background: linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%);
+    color: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    line-height: 1.6;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.draw-btn {
+    background: linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.draw-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #00acc1 0%, #26c6da 100%);
+}
+
+.draw-btn:active {
+    transform: translateY(0);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.flip-animation {
+    animation: flipCard 0.6s ease-in-out;
+}
+
+@keyframes flipCard {
+    0% { transform: perspective(400px) rotateY(0deg); }
+    50% { transform: perspective(400px) rotateY(90deg); }
+    100% { transform: perspective(400px) rotateY(0deg); }
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mode Selection Styles */
+.mode-selection {
+    text-align: center;
+}
+
+.mode-selection h2 {
+    color: #f0f0f0;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    font-weight: 300;
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    background: rgba(100, 100, 100, 0.3);
+    border: 2px solid #666;
+    border-radius: 20px;
+    padding: 30px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    backdrop-filter: blur(10px);
+}
+
+.mode-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    border-color: #00bcd4;
+}
+
+.group-btn:hover {
+    background: rgba(0, 188, 212, 0.2);
+}
+
+.solo-btn:hover {
+    background: rgba(77, 208, 225, 0.2);
+}
+
+.mode-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.mode-title {
+    color: #f0f0f0;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.mode-description {
+    color: #ccc;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.game-screen {
+    transition: all 0.5s ease;
+}
+
+.back-btn {
+    background: rgba(100, 100, 100, 0.3);
+    color: #f0f0f0;
+    border: 1px solid #666;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    background: rgba(0, 188, 212, 0.2);
+    border-color: #00bcd4;
+    transform: translateY(-2px);
+}
+
+/* Dance Denial Specific Styles */
+.dance-btn:hover {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #f44336;
+}
+
+.dance-denial-screen {
+    transition: all 0.5s ease;
+}
+
+.game-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.game-info h2 {
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    font-size: 2em;
+    background: linear-gradient(45deg, #f44336, #ff5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.phase-info {
+    background: rgba(100, 100, 100, 0.3);
+    border: 1px solid #666;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.phase-indicator {
+    color: #f0f0f0;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.phase-description {
+    color: #ccc;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.players-section {
+    margin-bottom: 30px;
+}
+
+.player-info {
+    background: rgba(100, 100, 100, 0.3);
+    border: 1px solid #666;
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.current-player {
+    color: #f0f0f0;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.player-instructions {
+    color: #ccc;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.game-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.ready-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.ready-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #388e3c 0%, #4caf50 100%);
+}
+
+.dance-btn {
+    background: linear-gradient(135deg, #f44336 0%, #ff5722 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.dance-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+}
+
+.dance-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #ccc;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dance-stats > div {
+    background: rgba(100, 100, 100, 0.2);
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #555;
+}
+
+/* Phase-specific styling */
+.phase-1 .phase-indicator {
+    color: #4caf50;
+}
+
+.phase-2 .phase-indicator {
+    color: #f44336;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
