@@ -101,9 +101,12 @@ shuffleDeck(deck) {
     this.gameScreen = document.getElementById('gameScreen');
     this.groupModeBtn = document.getElementById('groupMode');
     this.soloModeBtn = document.getElementById('soloMode');
-    
-    // Add this line:
     this.backToModeBtn = document.getElementById('backToMode');
+    
+    // Game info elements
+    this.gameInfo = document.getElementById('gameInfo');
+    this.gameInfoTitle = document.getElementById('gameInfoTitle');
+    this.gameInfoContent = document.getElementById('gameInfoContent');
     
     // Regular game elements
     this.cardElement = document.getElementById('card');
@@ -224,30 +227,34 @@ shuffleDeck(deck) {
     this.gameScreen.classList.remove('hidden');
     this.gameScreen.classList.add('visible');
     
+    // Update game info based on mode
+    this.updateGameInfo(mode);
+    
     // Update instruction text based on mode
     const modeText = mode === 'group' ? 'group' : 'solo';
-  this.instruction.textContent = "Click \"Draw Card\" to get your first " + modeText + " command!";
+    this.instruction.textContent = "Click \"Draw Card\" to get your first " + modeText + " command!";
     
     // Update deck count
     this.deckCount.textContent = this.deck.length;
-} // <- Add this closing brace
-
-backToModeSelection() {
-    // Hide all game screens and show mode selection
-    this.gameScreen.classList.add('hidden');
-    this.gameScreen.classList.remove('visible');
-    this.modeSelection.classList.remove('hidden');
-        
-        // Reset game state
-        this.deck = null;
-        this.drawnCount = 0;
-        this.cardElement.style.display = 'none';
-        this.cardCount.textContent = '0';
-        this.deckCount.textContent = '0';  // Temporary until mode selected
-        this.gameMode = null;
-    }
 }
 
+updateGameInfo(mode) {
+    if (mode === 'group') {
+        this.gameInfoTitle.textContent = "Group Game Rules";
+        this.gameInfoContent.innerHTML = `
+            <p>Playing with friends - Welcome to the CIRCLE JERK!</p>
+            <p>Deck: 104 cards (2 full decks)</p>
+            <p>Wank together and have fun!</p>
+        `;
+    } else {
+        this.gameInfoTitle.textContent = "Solo Game Rules";
+        this.gameInfoContent.innerHTML = `
+            <p>Jerking and Edging - follow solo masturbation instructions!</p>
+            <p>Deck: 52 cards (1 full deck)</p>
+            <p>Stroke yourself and enjoy!</p>
+        `;
+    }
+}
 // Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new CardGame();
