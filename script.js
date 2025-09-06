@@ -171,8 +171,8 @@ shuffleDeck(deck) {
         setTimeout(() => {
             // Update card display
             this.cardImage.src = card.imagePath;
-            this.cardImage.alt = `${card.value} of ${card.suit}`;
-            this.cardElement.className = `card ${card.suitName}`;
+            this.cardImage.alt = card.value + " of " + card.suit;
+            this.cardElement.className = "card " + card.suitName;
             this.cardElement.style.display = 'flex';
 
             // Get instruction for this card value based on game mode
