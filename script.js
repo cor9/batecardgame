@@ -205,32 +205,32 @@ shuffleDeck(deck) {
     }
 
     selectMode(mode) {
-        this.gameMode = mode;
-        
-        // Create deck based on mode
-        const numDecks = mode === 'group' ? 2 : 1;
-        this.deck = this.createDeck(numDecks);
-        
-        // Hide mode selection
-        this.modeSelection.classList.add('hidden');
-        
-        // Show regular game screen
-        this.gameScreen.classList.remove('hidden');
-        this.gameScreen.classList.add('visible');
-        
-        // Update instruction text based on mode
-        const modeText = mode === 'group' ? 'group' : 'solo';
-        this.instruction.textContent = `Click "Draw Card" to get your first ${modeText} command!`;
-        
-        // Update deck count
-        this.deckCount.textContent = this.deck.length;
-    }
+    this.gameMode = mode;
+    
+    // Create deck based on mode
+    const numDecks = mode === 'group' ? 2 : 1;
+    this.deck = this.createDeck(numDecks);
+    
+    // Hide mode selection
+    this.modeSelection.classList.add('hidden');
+    
+    // Show regular game screen
+    this.gameScreen.classList.remove('hidden');
+    this.gameScreen.classList.add('visible');
+    
+    // Update instruction text based on mode
+    const modeText = mode === 'group' ? 'group' : 'solo';
+    this.instruction.textContent = `Click "Draw Card" to get your first ${modeText} command!`;
+    
+    // Update deck count
+    this.deckCount.textContent = this.deck.length;
+} // <- Add this closing brace
 
-    backToModeSelection() {
-        // Hide all game screens and show mode selection
-        this.gameScreen.classList.add('hidden');
-        this.gameScreen.classList.remove('visible');
-        this.modeSelection.classList.remove('hidden');
+backToModeSelection() {
+    // Hide all game screens and show mode selection
+    this.gameScreen.classList.add('hidden');
+    this.gameScreen.classList.remove('visible');
+    this.modeSelection.classList.remove('hidden');
         
         // Reset game state
         this.deck = null;
