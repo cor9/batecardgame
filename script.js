@@ -4,7 +4,6 @@ class CardGame {
         this.drawnCount = 0;
         this.instructions = this.createInstructions();
         this.gameMode = null; // 'group', 'solo', or 'danceDenial'
-        this.danceDenialGame = null;
         this.initializeElements();
         this.bindEvents();
     }
@@ -13,6 +12,14 @@ class CardGame {
         const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
+
+            // Add one joker
+        deck.push({
+            value: 'JOKER',
+            suit: '🃏',
+            suitName: 'joker',
+            number: 0
+        });
         
         let deck = [];
         // Create two complete decks (104 cards total)
@@ -94,8 +101,13 @@ class CardGame {
             'K': [
                 "Everyone except you has to jerk off for 10 seconds",
                 "Your favorite stroke for 45 seconds"
+            ],
+            'JOKER': [
+                "Race to Ruin",
+                "Cum now or Twice before game over"
             ]
         };
+        
     }
 
 
@@ -138,8 +150,33 @@ class CardGame {
         // Hide instruction temporarily
         this.instruction.classList.add('hidden');
 
-        // Draw card
-        const card = this.deck.pop();
+        // Draw card, but prevent Aces in first 5 cards
+        let card;
+        let attempts = 0;
+        do {
+            if (this.deck.length === 0) {
+                this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
+                this.drawBtn.textContent = "Refresh Game";
+                this.drawBtn.onclick = () => location.reload();
+                return;
+            }
+            
+            card = this.deck.pop();
+            attempts++;
+            
+            // If we've drawn fewer than 5 cards and got an Ace, put it back and reshuffle
+            if (this.drawnCount < 5 && card.value === 'A') {
+                this.deck.unshift(card); // Put Ace back at beginning
+                this.shuffleDeck(this.deck); // Reshuffle deck
+                card = null; // Continue loop
+            }
+            
+            // Safety check to prevent infinite loop
+            if (attempts > 50) {
+                break;
+            }
+        } while (card === null);
+        
         this.drawnCount++;
 
         // Animate card flip
@@ -196,7 +233,6 @@ class CardGame {
             // Show regular game screen
             this.gameScreen.classList.remove('hidden');
             this.gameScreen.classList.add('visible');
-            this.danceDenialScreen.classList.add('hidden');
             
             // Update instruction text based on mode
             const modeText = mode === 'group' ? 'group' : 'solo';
@@ -208,8 +244,6 @@ class CardGame {
         // Hide all game screens and show mode selection
         this.gameScreen.classList.add('hidden');
         this.gameScreen.classList.remove('visible');
-        this.danceDenialScreen.classList.add('hidden');
-        this.danceDenialScreen.classList.remove('visible');
         this.modeSelection.classList.remove('hidden');
         
         // Reset game state
@@ -219,40 +253,8 @@ class CardGame {
         this.cardCount.textContent = '0';
         this.deckCount.textContent = '104';
         this.gameMode = null;
-        this.danceDenialGame = null;
     }
 
-    // Dance Denial Game Methods
-    initializeDanceDenialGame() {
-        this.danceDenialGame = {
-            deck: this.createDanceDenialDeck(),
-            phase: 1, // 1 = building tension, 2 = competition
-            currentPlayer: Math.random() < 0.5 ? 1 : 2, // Random starting player
-            cardsDrawn: 0,
-            bothPlayersReady: false,
-            gameOver: false,
-            winner: null
-        };
-        
-        this.updateDanceDenialUI();
-    }
-
-    createDanceDenialDeck() {
-        const suits = ['♠', '♥', '♦', '♣'];
-        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-        const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];
-        
-        let deck = [];
-        suits.forEach((suit, suitIndex) => {
-            values.forEach(value => {
-                deck.push({
-                    value: value,
-                    suit: suit,
-                    suitName: suitNames[suitIndex],
-                    number: this.getCardNumber(value)
-                });
-            });
-        });
         
         // Add one joker
         deck.push({
@@ -262,129 +264,6 @@ class CardGame {
             number: 0
         });
         
-        return this.shuffleDeck(deck);
-    }
-
-    getCardNumber(value) {
-        if (value === 'A') return 1;
-        if (value === 'J') return 11;
-        if (value === 'Q') return 12;
-        if (value === 'K') return 15;
-        return parseInt(value);
-    }
-
-    updateDanceDenialUI() {
-        const game = this.danceDenialGame;
-        
-        // Update phase info
-        if (game.phase === 1) {
-            this.currentPhase.textContent = "Phase 1: Building Tension";
-            this.phaseDescription.textContent = "Both players stretch together. Dancing is FORBIDDEN!";
-            this.danceDenialScreen.className = 'dance-denial-screen phase-1';
-        } else {
-            this.currentPhase.textContent = "Phase 2: Dance Competition";
-            this.phaseDescription.textContent = "Players take turns stretching. First to dance wins!";
-            this.danceDenialScreen.className = 'dance-denial-screen phase-2';
-        }
-        
-        // Update player info
-        this.currentPlayer.textContent = `Player ${game.currentPlayer}'s Turn`;
-        
-        // Update stats
-        this.danceCardCount.textContent = game.cardsDrawn;
-        this.danceDeckCount.textContent = game.deck.length;
-        this.phaseNumber.textContent = game.phase;
-        
-        // Update buttons
-        this.drawDanceCardBtn.style.display = 'inline-block';
-        this.readyBtn.classList.add('hidden');
-        this.danceBtn.classList.add('hidden');
-        
-        if (game.phase === 1) {
-            this.playerInstructions.textContent = "Draw a card. Both players stretch together!";
-        } else {
-            this.playerInstructions.textContent = `Draw a card and stretch ${game.lastCardNumber} times!`;
-        }
-    }
-
-    drawDanceCard() {
-        const game = this.danceDenialGame;
-        
-        if (game.deck.length === 0) {
-            this.playerInstructions.textContent = "🎉 Deck complete! Game over - both players denied!";
-            this.drawDanceCardBtn.style.display = 'none';
-            return;
-        }
-
-        const card = game.deck.pop();
-        game.cardsDrawn++;
-        game.lastCardNumber = card.number;
-        
-        // Show card
-        this.danceCardElement.classList.add('flip-animation');
-        
-        setTimeout(() => {
-            this.danceCardValue.textContent = card.value;
-            this.danceCardSuit.textContent = card.suit;
-            this.danceCardElement.className = `card ${card.suitName}`;
-            this.danceCardElement.style.display = 'flex';
-            
-            // Check if joker was drawn
-            if (card.value === 'JOKER') {
-                if (game.phase === 1) {
-                    // Transition to phase 2
-                    game.phase = 2;
-                    this.playerInstructions.textContent = "🎉 JOKER! Phase 2 begins! Competition time!";
-                    setTimeout(() => {
-                        this.updateDanceDenialUI();
-                    }, 2000);
-                } else {
-                    // Joker in phase 2 - shuffle and continue
-                    game.deck = this.createDanceDenialDeck();
-                    this.playerInstructions.textContent = "JOKER! Deck shuffled. Continue the competition!";
-                }
-            } else {
-                // Regular card
-                if (game.phase === 1) {
-                    this.playerInstructions.textContent = `Both players stretch ${card.number} times! Say "Ready" when done.`;
-                    this.readyBtn.classList.remove('hidden');
-                } else {
-                    this.playerInstructions.textContent = `Stretch ${card.number} times! You can dance anytime during your stretch!`;
-                    this.danceBtn.classList.remove('hidden');
-                }
-            }
-            
-            this.updateDanceDenialUI();
-        }, 300);
-    }
-
-    playerReady() {
-        const game = this.danceDenialGame;
-        
-        if (game.phase === 1) {
-            // Switch to other player
-            game.currentPlayer = game.currentPlayer === 1 ? 2 : 1;
-            this.readyBtn.classList.add('hidden');
-            this.updateDanceDenialUI();
-        }
-    }
-
-    playerDance() {
-        const game = this.danceDenialGame;
-        
-        if (game.phase === 2 && !game.gameOver) {
-            game.gameOver = true;
-            game.winner = game.currentPlayer;
-            
-            this.playerInstructions.textContent = `🎉 Player ${game.winner} WINS! Enjoy your dance! 💃🕺`;
-            this.danceBtn.classList.add('hidden');
-            this.drawDanceCardBtn.style.display = 'none';
-            
-            // Add celebration effect
-            this.danceDenialScreen.style.animation = 'pulse 0.5s infinite';
-        }
-    }
-}
 
 // Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
