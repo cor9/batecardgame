@@ -245,7 +245,7 @@ updateGameInfo(mode) {
             <p>Playing with friends - Welcome to the CIRCLE JERK!</p>
             <p>Deck: 104 cards (2 full decks)</p>
             <p>Wank together and have fun!</p>
-        `;
+        ;
     } else {
         this.gameInfoTitle.textContent = "Solo Game Rules";
         this.gameInfoContent.innerHTML = `
