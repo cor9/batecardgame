@@ -52,7 +52,6 @@ shuffleDeck(deck) {
             '3': [
                 "Jerk the guy to the right slow and steady for 30 seconds",
                 "Jerk slow and steady for 30 seconds"
-               
             ],
             '4': [
                 "Choose another to edge with you and focus on cockhead for 20 seconds",
