@@ -188,107 +188,98 @@ class CardGame
          // Back button         
          this.backToModeBtn.addEventListener('click', () => this.backToModeSelection());     
      }      
-     drawCard() {         
-         if (this.deck.length === 0) {             
-             this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";             
-             this.instruction.classList.remove('hidden');             
-             this.instruction.classList.add('visible');             
-             this.drawBtn.textContent = "Refresh Game";             
-             this.drawBtn.onclick = () => location.reload();             
-             return;         
-         }         
-         
-         // Hide instruction temporarily         
-         this.instruction.classList.add('hidden');          
-         
-// Generate instruction key for value + suit first
-const cardKey = card.value + '_' + card.suitName;
-console.log("Card:", card.value, "of", card.suitName);
-console.log("Generated key:", cardKey);
-
-// Try to get suit-specific instructions first
-let possibleInstructions = this.instructions[cardKey];
-
-// If no suit-specific instruction exists, fall back to value-only
-if (!possibleInstructions) {
-    possibleInstructions = this.instructions[card.value];
-    console.log("Falling back to value-only instructions for:", card.value);
-}
-
-console.log("Available instructions:", possibleInstructions);
-
-let selectedInstruction;
-
-if (possibleInstructions) {
-    if (this.gameMode === 'group') {
-        selectedInstruction = possibleInstructions[0];
-    } else {
-        selectedInstruction = possibleInstructions[1];
+   drawCard() {
+    if (this.deck.length === 0) {
+        this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
+        this.instruction.classList.remove('hidden');
+        this.instruction.classList.add('visible');
+        this.drawBtn.textContent = "Refresh Game";
+        this.drawBtn.onclick = () => location.reload();
+        return;
     }
-} else {
-    selectedInstruction = "No instruction found for " + card.value;
-}               
-             
-             card = this.deck.pop();             
-             attempts++;                          
-             // If we've drawn fewer than 5 cards and got an Ace, put it back and reshuffle             
-             if (this.drawnCount < 5 && card.value === 'A') {                 
-                 this.deck.unshift(card); 
-                 // Put Ace back at beginning                 
-                 this.shuffleDeck(this.deck); 
-                 // Reshuffle deck                 
-                 card = null; 
-                 // Continue loop             
-             }                          
-             
-             // Safety check to prevent infinite loop             
-             if (attempts > 50) {                 
-                 break;             
-             }         
-         } while (card === null);                  
-         this.drawnCount++;          
+
+    // Hide instruction temporarily
+    this.instruction.classList.add('hidden');
+
+    // Draw card with Ace prevention logic
+    let card;
+    let attempts = 0;
+    do {
+        if (this.deck.length === 0) {
+            this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
+            this.instruction.classList.remove('hidden');
+            this.instruction.classList.add('visible');
+            this.drawBtn.textContent = "Refresh Game";
+            this.drawBtn.onclick = () => location.reload();
+            return;
+        }
         
-         // Animate card flip         
-         this.cardElement.classList.add('flip-animation');                  
-         
-         setTimeout(() => {             
+        card = this.deck.pop();
+        attempts++;
         
-             // Update card display             
-             this.cardImage.src = card.imagePath;             
-             this.cardImage.alt = card.value + " of " + card.suit;             
-             this.cardElement.className = "card " + card.suitName;             
-             this.cardElement.style.display = 'flex';             
-             
-             // Get instruction for this card value based on game mode            
-             const possibleInstructions = this.instructions[card.value];             
-             let selectedInstruction;                          
-             if (this.gameMode === 'group') {                
-                 
-                 // Group mode: show first instruction (index 0)                 
-                 selectedInstruction = possibleInstructions[0];             
-             } 
-             else {                 
-           
-                 // Solo mode: show second instruction (index 1)                 
-                 selectedInstruction = possibleInstructions[1];             
-             }                         
-          
-             // Show instruction with delay             
-             setTimeout(() => {                 
-                 this.instruction.textContent = selectedInstruction;                 
-                 this.instruction.classList.remove('hidden');                 
-                 this.instruction.classList.add('visible');             
-             }, 
-                        200);             
-           
-             // Update stats             
-             this.cardCount.textContent = this.drawnCount;             
-             this.deckCount.textContent = this.deck.length;              
-            
-             // Remove animation class for next draw             
-             this.cardElement.classList.remove('flip-animation');         
-         }, 300);    
-     }      
+        // If we've drawn fewer than 5 cards and got an Ace, put it back and reshuffle
+        if (this.drawnCount < 5 && card.value === 'A') {
+            this.deck.unshift(card);
+            this.shuffleDeck(this.deck);
+            card = null;
+        }
+        
+        // Safety check to prevent infinite loop
+        if (attempts > 50) {
+            break;
+        }
+    } while (card === null);
+    
+    this.drawnCount++;
+
+    // Animate card flip
+    this.cardElement.classList.add('flip-animation');
+    
+    setTimeout(() => {
+        // Update card display
+        this.cardImage.src = card.imagePath;
+        this.cardImage.alt = card.value + " of " + card.suit;
+        this.cardElement.className = "card " + card.suitName;
+        this.cardElement.style.display = 'flex';
+
+        // Generate instruction key for value + suit first
+        const cardKey = card.value + '_' + card.suitName;
+        
+        // Try to get suit-specific instructions first
+        let possibleInstructions = this.instructions[cardKey];
+        
+        // If no suit-specific instruction exists, fall back to value-only
+        if (!possibleInstructions) {
+            possibleInstructions = this.instructions[card.value];
+        }
+        
+        let selectedInstruction;
+        
+        if (possibleInstructions) {
+            if (this.gameMode === 'group') {
+                selectedInstruction = possibleInstructions[0];
+            } else {
+                selectedInstruction = possibleInstructions[1];
+            }
+        } else {
+            selectedInstruction = "No instruction found for " + card.value;
+        }
+        
+        // Show instruction with delay
+        setTimeout(() => {
+            this.instruction.textContent = selectedInstruction;
+            this.instruction.classList.remove('hidden');
+            this.instruction.classList.add('visible');
+        }, 200);
+
+        // Update stats
+        this.cardCount.textContent = this.drawnCount;
+        this.deckCount.textContent = this.deck.length;
+
+        // Remove animation class for next draw
+        this.cardElement.classList.remove('flip-animation');
+    }, 300);
+}  
      selectMode(mode) 
      {         
          this.gameMode = mode;                  
