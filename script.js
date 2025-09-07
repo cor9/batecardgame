@@ -47,35 +47,35 @@ class CardGame
                  "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",                 
                  "Cum now or pass  (only 3 passes allowed)"             
              ],             
-             '2_Hearts': [                 
+             '2_hearts': [                 
                  "Choose two buds to jerk each other off for 20 seconds",                 
                  "Jerk fast for 20 seconds"             
              ],
-             '2_Diamonds': [
+             '2_diamonds': [
                  "Choose a bud, then wank eachother slow for 20 seconds",
                  "Backhand stroke for 20 seconds"
                  ],
-             '2_Spades': [
+             '2_spades': [
                  "Choose a bud, then wank eachother medium for 20 seconds",
                  "Slow light stroke for 20 seconds"
                  ],
-             '2_Clubs': [
+             '2_clubs': [
                  "Choose a bud, then wank eachother fast for 20 seconds",
                  "Slow steady strokes for 20 seconds"
                  ],
-             '3_Hearts': [
+             '3_hearts': [
                  "Jerk the guy to the left slow steady strokes for 30 seconds",
                  "Slow feather touch strokes for 30 seconds"
                  ],
-             '3_Diamonds': [                 
+             '3_diamonds': [                 
                  "Jerk the guy to the right slow steady strokes for 30 seconds",                 
                  "Jerk slow and steady for 30 seconds"             
              ],
-             '3_Spades': [
+             '3_spades': [
                  "Jerk the guy to the left slow feather touch strokes for 30 seconds",
                  "Jerk slow, grip hard for 30 seconds"
                  ],
-             '3_Clubs': [
+             '3_clubs': [
                   "Jerk the guy to the right slow feather touch strokes for 30 seconds",
                  "Jerk slow and twisty for 30 seconds"
                  ],
@@ -87,15 +87,15 @@ class CardGame
                  "Everyone jerks FAST and HARD for 20 seconds",                 
                  "Jerk your dick fast and hard for 15 seconds"            
              ],            
-             '6_Hearts': [                 
+             '6_hearts': [                 
                  "Slap dick against another's hand or leg of your choosing",                
                  "Wiggle penis, slap against hand 6 times"             
              ],
-             '6_Diamonds': [
+             '6_diamonds': [
                   "Slap dick against another's hand or leg of your choosing",
                   "Wiggle penis, slap against belly 6 times"
             ],
-             '6_Spades': [
+             '6_spades': [
                   "Slap dick against the guy to your right's hand or leg of your choosing",
                  "Wiggle penis, slap against thigh 6 times"
                  ],
@@ -107,35 +107,35 @@ class CardGame
                  "Bate - start jerking and you can’t stop until the next 8 comes out",                
                  "Wank until wet, Eat Precum"          
              ],            
-             '9_Hearts': [                
+             '9_hearts': [                
                  "Take a pic of your dick and upload it somewhere online",               
                  "Make a 10 second wank video"           
              ], 
-              '9_Diamonds': [                
+              '9_diamonds': [                
                  "Take a pic of your ass and upload it somewhere online",               
                  "Make a 15 second wank video"           
              ],  
-              '9_Clubs': [                
+              '9_clubs': [                
                  "Take a pic of your dick tucked and upload it somewhere online",               
                  "Make a 20 second wank video"           
              ],  
-              '9_Spades': [                
+              '9_spades': [                
                  "Take a full body pic and upload it somewhere online",               
                  "Make a 30 second wank video"           
              ],  
-             '10_Hearts': [                 
+             '10_hearts': [                 
                  "Be a fitness instructor and give a command for a set of ten jumping jacks and an edge",                
                  "10 jumping jacks and an edge"             
              ],
-                '10_Diamonds': [                 
+                '10_diamonds': [                 
                  "Be a fitness instructor and give a command for a set of ten pushups and an edge",                
                  "10 pushups and an edge"             
              ],
-                '10_Clubs': [                 
+                '10_clubs': [                 
                  "Be a fitness instructor and give a command for a set of ten situps and an edge",                
                  "10 situps and an edge"             
              ], 
-                '10_Spades': [                 
+                '10_spades': [                 
                  "Be a fitness instructor and give a command for a set of ten lunges and an edge ",                
                  "10 lunges and an edge"             
              ],      
