@@ -43,104 +43,46 @@ class CardGame
      
      createInstructions() {         
          return {
-             // Suit-specific instructions for special cards
-             '2_Hearts': [                 
-                 "Choose two buds to jerk each other off for 20 seconds",                 
-                 "Jerk fast for 20 seconds"             
+             'A': [                 
+                 "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",
+                   "Cum now or pass (only 3 passes allowed)"         
+             ],             
+             '2': [
+                 "**Buddy swap frenzy**: Choose two buds to jerk each other off for 20 seconds, **but they must maintain eye contact the whole time—no breaking gaze or you both restart**.",
+                 "Jerk fast for 30 seconds, **alternating hands every 5 seconds to build unpredictable rhythm**."
              ],
-             '2_Diamonds': [
-                 "Choose a bud, then wank eachother slow for 20 seconds",
-                 "Backhand stroke for 20 seconds"
-                 ],
-             '2_Spades': [
-                 "Choose a bud, then wank eachother medium for 20 seconds",
-                 "Slow light stroke for 20 seconds"
-                 ],
-             '2_Clubs': [
-                 "Choose a bud, then wank eachother fast for 20 seconds",
-                 "Slow steady strokes for 20 seconds"
-                 ],
-             '3_Hearts': [
-                 "Jerk the guy to the left slow steady strokes for 30 seconds",
-                 "Slow feather touch strokes for 30 seconds"
-                 ],
-             '3_Diamonds': [                 
-                 "Jerk the guy to the right slow steady strokes for 30 seconds",                 
-                 "Jerk slow and steady for 30 seconds"             
-             ],
-             '3_Spades': [
-                 "Jerk the guy to the left slow feather touch strokes for 30 seconds",
-                 "Jerk slow, grip hard for 30 seconds"
-                 ],
-             '3_Clubs': [
-                  "Jerk the guy to the right slow feather touch strokes for 30 seconds",
-                 "Jerk slow and twisty for 30 seconds"
-                 ],         
-             '6_Hearts': [                 
-                 "Slap dick against another's hand or leg of your choosing",                
-                 "Wiggle penis, slap against hand 6 times"             
-             ],
-             '6_Diamonds': [
-                  "Slap dick against another's hand or leg of your choosing",
-                  "Wiggle penis, slap against belly 6 times"
+            '3': [
+                "Jerk the guy to the right slow and steady for 30 seconds, **whispering dirty encouragement in his ear to tease him mentally**.",         
+                  "Jerk slow and steady for 30 seconds, **focusing on breathing deeply to sync your strokes with your inhales and exhales**."     
             ],
-             '6_Spades': [
-                  "Slap dick against the guy to your right's hand or leg of your choosing",
-                 "Wiggle penis, slap against thigh 6 times"
-                 ],           
-             '9_Hearts': [                
-                 "Take a pic of your dick and upload it somewhere online",               
-                 "Make a 10 second wank video"           
-             ], 
-              '9_Diamonds': [                
-                 "Take a pic of your ass and upload it somewhere online",               
-                 "Make a 15 second wank video"           
-             ],  
-              '9_Clubs': [                
-                 "Take a pic of your dick tucked and upload it somewhere online",               
-                 "Make a 20 second wank video"           
-             ],  
-              '9_Spades': [                
-                 "Take a full body pic and upload it somewhere online",               
-                 "Make a 30 second wank video"           
-             ],  
-             '10_Hearts': [                 
-                 "Be a fitness instructor and give a command for a set of ten jumping jacks and an edge",                
-                 "10 jumping jacks and an edge"             
+             '4': [         
+                 "Choose another to edge with you and focus on cockhead for 20 seconds, **using only fingertips for feather-light torment**.",         
+                   "Edge your cockhead for 20 seconds, **circling it slowly while imagining a forbidden fantasy to amp up the mental edge**."     
              ],
-                '10_Diamonds': [                 
-                 "Be a fitness instructor and give a command for a set of ten pushups and an edge",                
-                 "10 pushups and an edge"             
+             '5': [         
+                 "Everyone jerks FAST and HARD for 20 seconds, **shouting out a number from 1-10 on how close you are to cumming—highest number gets a free pass next round**.",         
+                   "Jerk your dick fast and hard for 15 seconds, **slapping your bare ass with your free hand to add a rhythmic sting**."     
+                  ],
+             '6': [         
+                 "Guy to the right strokes your dick, while the Guy to the left spanks your bare ass at the same time for 60 seconds",         
+                   "Wiggle penis, slap against hand a dozen times, **then be still and hold breath for 15 seconds**."     
              ],
-                '10_Clubs': [                 
-                 "Be a fitness instructor and give a command for a set of ten situps and an edge",                
-                 "10 situps and an edge"             
-             ], 
-                '10_Spades': [                 
-                 "Be a fitness instructor and give a command for a set of ten lunges and an edge ",                
-                 "10 lunges and an edge"             
-             ],      
-             // General instructions for regular cards
-                 '4': [                
-                 "Choose another to edge with you and focus on cockhead for 20 seconds",                
-                 "Edge your cockhead for 20 seconds"            
-             ],             
-             '5': [                 
-                 "Everyone jerks FAST and HARD for 20 seconds",                 
-                 "Jerk your dick fast and hard for 15 seconds"            
-             ],   
-            '7': [                
-                 "Choose someone to do a DARE of your choosing",                 
-                 "On all fours, jerk for 35 seconds"             
-             ],             
-             '8': [                
-                 "Bate - start jerking and you can’t stop until the next 8 comes out",                
-                 "Wank until wet, Eat Precum"          
-             ], 
-               'A': [                 
-                 "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",                 
-                 "Cum now or pass  (only 3 passes allowed)"             
-             ],             
+             '7': [         
+                 "Dare - choose someone to do a dare of your choosing, **escalating it if they refuse (e.g., double the time or add a twist)**.",         
+                   "On all fours, slap ass and jerk for 35 seconds medium pace, **arching your back like you're performing for an invisible audience**."     
+                  ],
+             '8': [         
+                 "Bate - start jerking and you can’t stop until the next 8 comes out, **but everyone else watches and rates your technique out of 10**.",         
+                   "Edge, Eat Precum, **then lick your fingers clean while maintaining a steady tease on your balls**."     
+                  ],
+             '9': [         
+                 "Post a selfie - take a pic of your dick and upload it somewhere online, **anonymously if you're chicken, but bonus points for a caption teasing viewers**.",         
+                   "Make a 30 second wank video, **narrating your strokes like a seductive ASMR session**."     
+                  ],      
+            '10': [         
+                "Be a fitness instructor and give a command for two sets of ten (jumping jacks, situps, etc), **but incorporate jerking motions into the exercise for extra 'burn'**.",         
+                   "10 jumping jacks and 2 edges, **clenching your PC muscles during each jump to intensify the buildup**."     
+            ],
              'J': [                 
                  "Jerk off bud - whenever you have to jerk, your bud has to as well. Lasts until the next J is chosen.",                 
                  "Corkscrew jerk for 20 seconds"            
