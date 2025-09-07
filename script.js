@@ -12,10 +12,10 @@ class CardGame
         this.bindEvents();     } 
      
      createDeck(numDecks) {         
-         const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];         
+         const suits = ['spades', 'hearts', 'diamonds', 'clubs'];         
          const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];         
          const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];                  
-         let deck = [];        
+         let deck = [];       
       
          // Create specified number of complete decks         
          for (let deckNum = 0; deckNum < numDecks; deckNum++) {            
@@ -199,18 +199,13 @@ class CardGame
          // Hide instruction temporarily         
          this.instruction.classList.add('hidden');          
          
-         // Draw card, but prevent Aces in first 5 cards         
-         let card;         
-         let attempts = 0;         
-         do {             
-             if (this.deck.length === 0) {                 
-                 this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";                 
-                 this.instruction.classList.remove('hidden');                 
-                 this.instruction.classList.add('visible');                 
-                 this.drawBtn.textContent = "Refresh Game";                 
-                 this.drawBtn.onclick = () => location.reload();                 
-                 return;             
-             }                          
+     // In your drawCard() method, replace the instruction selection with:
+const cardKey = card.value + '_' + card.suitName.charAt(0).toLowerCase() + card.suitName.slice(1);
+console.log("Card:", card.value, "of", card.suitName);
+console.log("Generated key:", cardKey);
+console.log("Available instructions:", this.instructions[cardKey]);
+
+const possibleInstructions = this.instructions[cardKey];                 
              
              card = this.deck.pop();             
              attempts++;                          
