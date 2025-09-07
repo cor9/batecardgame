@@ -42,103 +42,105 @@ class CardGame
      }      
      
      createInstructions() {         
-         return {             
-             'A': [                 
-                 "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",                 
-                 "Cum now or pass  (only 3 passes allowed)"             
-             ],             
-             '2_hearts': [                 
+         return {
+             // Suit-specific instructions for special cards
+             '2_Hearts': [                 
                  "Choose two buds to jerk each other off for 20 seconds",                 
                  "Jerk fast for 20 seconds"             
              ],
-             '2_diamonds': [
+             '2_Diamonds': [
                  "Choose a bud, then wank eachother slow for 20 seconds",
                  "Backhand stroke for 20 seconds"
                  ],
-             '2_spades': [
+             '2_Spades': [
                  "Choose a bud, then wank eachother medium for 20 seconds",
                  "Slow light stroke for 20 seconds"
                  ],
-             '2_clubs': [
+             '2_Clubs': [
                  "Choose a bud, then wank eachother fast for 20 seconds",
                  "Slow steady strokes for 20 seconds"
                  ],
-             '3_hearts': [
+             '3_Hearts': [
                  "Jerk the guy to the left slow steady strokes for 30 seconds",
                  "Slow feather touch strokes for 30 seconds"
                  ],
-             '3_diamonds': [                 
+             '3_Diamonds': [                 
                  "Jerk the guy to the right slow steady strokes for 30 seconds",                 
                  "Jerk slow and steady for 30 seconds"             
              ],
-             '3_spades': [
+             '3_Spades': [
                  "Jerk the guy to the left slow feather touch strokes for 30 seconds",
                  "Jerk slow, grip hard for 30 seconds"
                  ],
-             '3_clubs': [
+             '3_Clubs': [
                   "Jerk the guy to the right slow feather touch strokes for 30 seconds",
                  "Jerk slow and twisty for 30 seconds"
-                 ],
-             '4': [                
+                 ],         
+             '6_Hearts': [                 
+                 "Slap dick against another's hand or leg of your choosing",                
+                 "Wiggle penis, slap against hand 6 times"             
+             ],
+             '6_Diamonds': [
+                  "Slap dick against another's hand or leg of your choosing",
+                  "Wiggle penis, slap against belly 6 times"
+            ],
+             '6_Spades': [
+                  "Slap dick against the guy to your right's hand or leg of your choosing",
+                 "Wiggle penis, slap against thigh 6 times"
+                 ],           
+             '9_Hearts': [                
+                 "Take a pic of your dick and upload it somewhere online",               
+                 "Make a 10 second wank video"           
+             ], 
+              '9_Diamonds': [                
+                 "Take a pic of your ass and upload it somewhere online",               
+                 "Make a 15 second wank video"           
+             ],  
+              '9_Clubs': [                
+                 "Take a pic of your dick tucked and upload it somewhere online",               
+                 "Make a 20 second wank video"           
+             ],  
+              '9_Spades': [                
+                 "Take a full body pic and upload it somewhere online",               
+                 "Make a 30 second wank video"           
+             ],  
+             '10_Hearts': [                 
+                 "Be a fitness instructor and give a command for a set of ten jumping jacks and an edge",                
+                 "10 jumping jacks and an edge"             
+             ],
+                '10_Diamonds': [                 
+                 "Be a fitness instructor and give a command for a set of ten pushups and an edge",                
+                 "10 pushups and an edge"             
+             ],
+                '10_Clubs': [                 
+                 "Be a fitness instructor and give a command for a set of ten situps and an edge",                
+                 "10 situps and an edge"             
+             ], 
+                '10_Spades': [                 
+                 "Be a fitness instructor and give a command for a set of ten lunges and an edge ",                
+                 "10 lunges and an edge"             
+             ],      
+             // General instructions for regular cards
+                 '4': [                
                  "Choose another to edge with you and focus on cockhead for 20 seconds",                
                  "Edge your cockhead for 20 seconds"            
              ],             
              '5': [                 
                  "Everyone jerks FAST and HARD for 20 seconds",                 
                  "Jerk your dick fast and hard for 15 seconds"            
-             ],            
-             '6_hearts': [                 
-                 "Slap dick against another's hand or leg of your choosing",                
-                 "Wiggle penis, slap against hand 6 times"             
-             ],
-             '6_diamonds': [
-                  "Slap dick against another's hand or leg of your choosing",
-                  "Wiggle penis, slap against belly 6 times"
-            ],
-             '6_spades': [
-                  "Slap dick against the guy to your right's hand or leg of your choosing",
-                 "Wiggle penis, slap against thigh 6 times"
-                 ],
-             '7': [                
+             ],   
+            '7': [                
                  "Choose someone to do a DARE of your choosing",                 
                  "On all fours, jerk for 35 seconds"             
              ],             
              '8': [                
                  "Bate - start jerking and you can’t stop until the next 8 comes out",                
                  "Wank until wet, Eat Precum"          
-             ],            
-             '9_hearts': [                
-                 "Take a pic of your dick and upload it somewhere online",               
-                 "Make a 10 second wank video"           
              ], 
-              '9_diamonds': [                
-                 "Take a pic of your ass and upload it somewhere online",               
-                 "Make a 15 second wank video"           
-             ],  
-              '9_clubs': [                
-                 "Take a pic of your dick tucked and upload it somewhere online",               
-                 "Make a 20 second wank video"           
-             ],  
-              '9_spades': [                
-                 "Take a full body pic and upload it somewhere online",               
-                 "Make a 30 second wank video"           
-             ],  
-             '10_hearts': [                 
-                 "Be a fitness instructor and give a command for a set of ten jumping jacks and an edge",                
-                 "10 jumping jacks and an edge"             
-             ],
-                '10_diamonds': [                 
-                 "Be a fitness instructor and give a command for a set of ten pushups and an edge",                
-                 "10 pushups and an edge"             
-             ],
-                '10_clubs': [                 
-                 "Be a fitness instructor and give a command for a set of ten situps and an edge",                
-                 "10 situps and an edge"             
-             ], 
-                '10_spades': [                 
-                 "Be a fitness instructor and give a command for a set of ten lunges and an edge ",                
-                 "10 lunges and an edge"             
-             ],      
+               'A': [                 
+                 "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",                 
+                 "Cum now or pass  (only 3 passes allowed)"             
+             ],             
              'J': [                 
                  "Jerk off bud - whenever you have to jerk, your bud has to as well. Lasts until the next J is chosen.",                 
                  "Corkscrew jerk for 20 seconds"            
@@ -199,13 +201,33 @@ class CardGame
          // Hide instruction temporarily         
          this.instruction.classList.add('hidden');          
          
-     // In your drawCard() method, replace the instruction selection with:
-const cardKey = card.value + '_' + card.suitName.charAt(0).toLowerCase() + card.suitName.slice(1);
+// Generate instruction key for value + suit first
+const cardKey = card.value + '_' + card.suitName;
 console.log("Card:", card.value, "of", card.suitName);
 console.log("Generated key:", cardKey);
-console.log("Available instructions:", this.instructions[cardKey]);
 
-const possibleInstructions = this.instructions[cardKey];                 
+// Try to get suit-specific instructions first
+let possibleInstructions = this.instructions[cardKey];
+
+// If no suit-specific instruction exists, fall back to value-only
+if (!possibleInstructions) {
+    possibleInstructions = this.instructions[card.value];
+    console.log("Falling back to value-only instructions for:", card.value);
+}
+
+console.log("Available instructions:", possibleInstructions);
+
+let selectedInstruction;
+
+if (possibleInstructions) {
+    if (this.gameMode === 'group') {
+        selectedInstruction = possibleInstructions[0];
+    } else {
+        selectedInstruction = possibleInstructions[1];
+    }
+} else {
+    selectedInstruction = "No instruction found for " + card.value;
+}               
              
              card = this.deck.pop();             
              attempts++;                          
