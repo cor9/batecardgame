@@ -105,57 +105,133 @@ updateTimerDisplay() {
      
      createInstructions() {         
          return {
-             'A': [                 
-                 "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off. Person who drew the card is the first one to stop, then the next person on his left. The next person can’t stop until the guy before has stopped, and you have to go as fast as the first person jerking off.",
-                   "Cum now or pass (only 3 passes allowed)"         
-             ],             
-             '2': [
-                 "**Buddy swap frenzy**: Choose two buds to jerk each other off for 20 seconds, **but they must maintain eye contact the whole time—no breaking gaze or you both restart**.",
-                 "Jerk fast for 30 seconds, **alternating hands every 5 seconds to build unpredictable rhythm**."
-             ],
-            '3': [
-                "Jerk the guy to the right slow and steady for 30 seconds, **whispering dirty encouragement in his ear to tease him mentally**.",         
-                  "Jerk slow and steady for 30 seconds, **focusing on breathing deeply to sync your strokes with your inhales and exhales**."     
-            ],
-             '4': [         
-                 "Choose another to edge with you and focus on cockhead for 20 seconds, **using only fingertips for feather-light torment**.",         
-                   "Edge your cockhead for 20 seconds, **circling it slowly while imagining a forbidden fantasy to amp up the mental edge**."     
-             ],
-             '5': [         
-                 "Everyone jerks FAST and HARD for 20 seconds, **shouting out a number from 1-10 on how close you are to cumming—highest number gets a free pass next round**.",         
-                   "Jerk your dick fast and hard for 15 seconds, **slapping your bare ass with your free hand to add a rhythmic sting**."     
-                  ],
-             '6': [         
-                 "Guy to the right strokes your dick, while the Guy to the left spanks your bare ass at the same time for 60 seconds",         
-                   "Wiggle penis, slap against hand a dozen times, **then be still and hold breath for 15 seconds**."     
-             ],
-             '7': [         
-                 "Dare - choose someone to do a dare of your choosing, **escalating it if they refuse (e.g., double the time or add a twist)**.",         
-                   "On all fours, slap ass and jerk for 35 seconds medium pace, **arching your back like you're performing for an invisible audience**."     
-                  ],
-             '8': [         
-                 "Bate - start jerking and you can’t stop until the next 8 comes out, **but everyone else watches and rates your technique out of 10**.",         
-                   "Edge, Eat Precum, **then lick your fingers clean while maintaining a steady tease on your balls**."     
-                  ],
-             '9': [         
-                 "Post a selfie - take a pic of your dick and upload it somewhere online, **anonymously if you're chicken, but bonus points for a caption teasing viewers**.",         
-                   "Make a 30 second wank video, **narrating your strokes like a seductive ASMR session**."     
-                  ],      
-            '10': [         
-                "Be a fitness instructor and give a command for two sets of ten (jumping jacks, situps, etc), **but incorporate jerking motions into the exercise for extra 'burn'**.",         
-                   "10 jumping jacks and 2 edges, **clenching your PC muscles during each jump to intensify the buildup**."     
-            ],
-             'J': [                 
-                 "Jerk off bud - whenever you have to jerk, your bud has to as well. Lasts until the next J is chosen.",                 
-                 "Corkscrew jerk for 20 seconds"            
-             ],            
-             'Q': [                
-                 "Jerk off bitch - whenever you get chosen to jerk off your bitch has to do it instead. Lasts until the next Q is chosen",                 
-                 "Wank as fast as you can for 25 seconds"             
-             ],             
-             'K': [                
-                 "Everyone except you has to jerk off for 45 seconds",                
-                 "Your favorite stroke for 45 seconds"            
+             'A': {                 
+                 group: {                     
+                     red: "Circle jerk race - grab the cock of your bud on your left. Everyone has to jerk off passionately. Person who drew the card is the first one to stop, then the next on his left. Match the intense speed of the first.",
+                     black: "Circle jerk race - grab the cock of your bud on your left. Everyone jerks off edged and teasing. Person who drew the card stops first, then next left. Can't stop until previous has, go as slow and tormenting as the first."
+                 },                 solo: {                     
+                     red: "Cum now or pass (only 3 passes allowed) - but if passing, tease yourself lightly for 10 seconds.",
+                     black: "Cum now or pass (only 3 passes allowed) - but if passing, hold still and clench for 10 seconds."
+                 }             
+             },             
+             '2': {                 
+                 group: {                     
+                     red: "Choose two buds to jerk each other off for 20 seconds, maintaining eye contact the whole time—no breaking gaze or restart.",                     
+                     black: "Choose two buds to jerk each other off for 20 seconds, but with one hand behind their back for added challenge."                 
+                 },                 
+                 solo: {                     
+                     red: "Jerk fast for 30 seconds, alternating hands every 5 seconds to build unpredictable rhythm.",
+                     black: "Jerk fast for 30 seconds, using only your non-dominant hand for extra intensity."                 
+                 }             
+             },             
+             '3': {                 
+                 group: {                     
+                     red: "Jerk the guy to the right slow and steady for 30 seconds, whispering dirty encouragement in his ear.",
+                     black: "Jerk the guy to the right slow and steady for 30 seconds, while lightly pinching nipples for teasing pain."                 
+                 },                 
+                 solo: {                     
+                     red: "Jerk slow and steady for 30 seconds, focusing on breathing deeply to sync strokes with inhales.", 
+                     black: "Jerk slow and steady for 30 seconds, incorporating gentle ball squeezes on every third stroke." 
+                 }            
+             },            
+                '4': {                
+                    group: {                     
+                        red: "Choose another to edge with you and focus on cockhead for 20 seconds, using only fingertips for feather-light torment.", 
+                        black: "Choose another to edge with you and focus on cockhead for 20 seconds, applying firm pressure for deep sensation."  
+                    },                
+                    solo: {                    
+                        red: "Edge your cockhead for 20 seconds, circling it slowly while imagining a passionate fantasy.", 
+                        black: "Edge your cockhead for 20 seconds, tapping it rhythmically while building dark desires in your mind." 
+                    }            
+                },             
+             '5': {                 
+                 group: {                    
+                     red: "Everyone jerks FAST and HARD for 20 seconds, shouting out how close you are—highest gets a free pass next round.", 
+                     black: "Everyone jerks FAST and HARD for 20 seconds, but must stay silent—first moan loses and edges extra 10 seconds."                 
+                 },                 
+                 solo: {                    
+                     red: "Jerk your dick fast and hard for 15 seconds, slapping your thigh with your free hand for rhythmic sting.",
+                     black: "Jerk your dick fast and hard for 15 seconds, gripping tighter on every fifth stroke for escalating pressure." 
+                 }             
+             },             
+             '6': {                
+                 group: {                    
+                     red: "Truth - choose someone to answer a truth of your choosing, but if they hesitate, they must edge silently for 10 seconds.", 
+                     black: "Truth - choose someone to answer a truth of your choosing, penalty for hesitation: reveal an extra embarrassing detail."                
+                 },               
+                 solo: {                    
+                     red: "Wiggle penis, slap against hand 9 times, then hold still for 10 seconds while reciting a kinkiest secret aloud.",  
+                     black: "Wiggle penis, slap against hand 9 times, then tense your body for 10 seconds imagining being watched."                
+                 }            
+             },             
+             '7': {                
+                 group: {                    
+                     red: "Dare - choose someone to do a dare of your choosing, escalating if refused (double time or add a passionate twist).",  
+                     black: "Dare - choose someone to do a dare of your choosing, escalating if refused (add a restraining or dominant element)."               
+                 },                 
+                 solo: {                     
+                     red: "On all fours, slap ass and jerk for 35 seconds medium pace, arching back like performing for an admirer.",   
+                     black: "On all fours, slap ass and jerk for 35 seconds medium pace, spanking harder for a punishing vibe."               
+                 }            
+             },            
+             '8': {                 
+                 group: {                     
+                     red: "Bate - start jerking and can’t stop until next 8, everyone watches and rates your passionate technique out of 10.",    
+                     black: "Bate - start jerking and can’t stop until next 8, everyone watches and suggests tormenting adjustments."                
+                 },                
+                 solo: {                    
+                     red: "Edge, Eat Precum, then lick fingers clean while maintaining a steady tease on your balls.",  
+                     black: "Edge, Eat Precum, then swallow slowly while pinching your thighs for added edge."               
+                 }           
+             },            
+             '9': {                
+                 group: {                     
+                     red: "Post a selfie - take a pic of your dick and upload online anonymously, with a teasing caption for admirers.",   
+                     black: "Post a selfie - take a pic of your dick and upload online anonymously, with a daring caption challenging viewers."                
+                 },                
+                 solo: {                    
+                     red: "Make a 30 second wank video, narrating your strokes like a seductive ASMR session.",   
+                     black: "Make a 30 second wank video, whispering forbidden thoughts like a dark confession."               
+                 }           
+             },             
+             '10': {               
+                 group: {                   
+                     red: "Be a fitness instructor: command two sets of ten (jumping jacks, etc.), incorporating passionate jerking motions.",   
+                     black: "Be a fitness instructor: command two sets of ten (pushups, etc.), with restraining twists in the exercises."                
+                 },                 
+                 solo: {                    
+                     red: "10 jumping jacks and 2 edges, clenching PC muscles during each jump to intensify buildup.",   
+                     black: "10 jumping jacks and 2 edges, holding breath briefly on each jump for controlled tension."                
+                 }            
+             },           
+             'J': {                
+                 group: {                     
+                     red: "Jerk off bud - whenever you jerk, your bud does too. Lasts until next J, mirror each other's passionate speed.", 
+                     black: "Jerk off bud - whenever you jerk, your bud does too. Lasts until next J, dominate by setting a teasing pace."                 
+                 },               
+                 solo: {                  
+                     red: "Corkscrew jerk for 20 seconds, twisting wrist like uncorking a bottle of heated pleasure.",   
+                     black: "Corkscrew jerk for 20 seconds, slowing the twist for a drawn-out, tormenting build."                
+                 }           
+             },           
+             'Q': {              
+                 group: {                    
+                     red: "Jerk off bitch - when chosen to jerk, your bitch does it instead. Lasts until next Q, they beg passionately.", 
+                     black: "Jerk off bitch - when chosen to jerk, your bitch does it instead. Lasts until next Q, they submit silently."               
+                 },                
+                 solo: {                    
+                     red: "Feather touch, slow movements of arousal, tracing patterns on thighs for agonizing anticipation.",   
+                     black: "Feather touch, slow movements of arousal, avoiding direct contact for frustrating denial."              
+                 }           
+             },           
+             'K': {                
+                 group: {                     
+                     red: "Everyone except you jerks for 10 seconds, you as 'king' command their passionate pace—fast or wild.",   
+                     black: "Everyone except you jerks for 10 seconds, you as 'king' command their edged pace—slow or stop on whim."                
+                 },               
+                 solo: {                     
+                     red: "Your favorite stroke for 45 seconds, experimenting with lube for slippery intensity.",             
+                     black: "Your favorite stroke for 45 seconds, going dry for raw, gripping friction."            
              ]        
          };    
      }      
