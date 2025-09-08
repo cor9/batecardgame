@@ -372,7 +372,6 @@ updateTimerDisplay() {
              <p>Stroke yourself and enjoy!</p>            
              `;        
          }     
-    }  
 
 // Initialize the game when page loads 
 document.addEventListener('DOMContentLoaded', () => {     
