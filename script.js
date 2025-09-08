@@ -308,6 +308,7 @@ updateTimerDisplay() {
     // Remove animation class for next draw
     this.cardElement.classList.remove('flip-animation');
 }, 300);
+       }
            
      selectMode(mode) 
      {         
