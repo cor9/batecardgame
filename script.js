@@ -15,27 +15,38 @@ class CardGame
         this.bindEvents();     } 
      
      createDeck(numDecks) {         
-         const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];         
-         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];         
-         const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];                  
-         let deck = [];       
-      
-         // Create specified number of complete decks         
-         for (let deckNum = 0; deckNum < numDecks; deckNum++) {            
-             suits.forEach((suit, suitIndex) => {                 
-                 values.forEach(value => {                    
-                     deck.push({                         
-                         value: value,                         
-                         suit: suit,                         
-                         suitName: suitNames[suitIndex],                         
-                        imagePath: "cards/" + suit + "/" + value + ".png"              
-                     });                 
-                 });             
-             });         
-         }                  
+    const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];         
+    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];         
+    const suitNames = ['spades', 'hearts', 'diamonds', 'clubs'];                  
+    let deck = [];       
+ 
+    // Create specified number of complete decks         
+    for (let deckNum = 0; deckNum < numDecks; deckNum++) {            
+        suits.forEach((suit, suitIndex) => {                 
+            values.forEach(value => {                    
+                deck.push({                         
+                    value: value,                         
+                    suit: suit,                         
+                    suitName: suitNames[suitIndex],                         
+                    imagePath: "cards/" + suit + "/" + value + ".png"              
+                });                 
+            });             
+        });         
+    }                  
+    
+    return this.shuffleDeck(deck);     
+}      
 
-         extractTimerDuration(instruction) {
-    // Look for patterns like "30 seconds", "2 minutes", "45 sec"
+shuffleDeck(deck) {         
+    for (let i = deck.length - 1; i > 0; i--) {             
+        const j = Math.floor(Math.random() * (i + 1));             
+        [deck[i], deck[j]] = [deck[j], deck[i]];         
+    }         
+    return deck;     
+}
+
+// Timer methods should be separate class methods:
+extractTimerDuration(instruction) {
     const patterns = [
         /(\d+)\s*seconds?/i,
         /(\d+)\s*secs?/i,
@@ -48,16 +59,16 @@ class CardGame
         if (match) {
             const value = parseInt(match[1]);
             if (pattern.source.includes('minute')) {
-                return value * 60; // Convert minutes to seconds
+                return value * 60;
             }
-            return value; // Already in seconds
+            return value;
         }
     }
     
-    return 0; // No timer found
+    return 0;
 }
 
-    startTimer() {
+startTimer() {
     if (this.timerDuration <= 0) return;
     
     this.timerRemaining = this.timerDuration;
@@ -90,15 +101,6 @@ updateTimerDisplay() {
     const seconds = this.timerRemaining % 60;
     this.timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
-         return this.shuffleDeck(deck);     
-     }      
-     shuffleDeck(deck) {         
-         for (let i = deck.length - 1; i > 0; i--) {             
-             const j = Math.floor(Math.random() * (i + 1));             
-             [deck[i], deck[j]] = [deck[j], deck[i]];         
-         }         
-         return deck;     
-     }      
      
      createInstructions() {         
          return {
