@@ -37,6 +37,27 @@ h1 {
     font-weight: 700;
 }
 
+/* Hero Text Section */
+.hero-text {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.hero-text p {
+    color: #e0e0e0;
+    font-size: 0.95em;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.hero-text p:last-child {
+    margin-bottom: 0;
+}
+
 /* Mode Selection Styles */
 .mode-selection {
     text-align: center;
@@ -297,6 +318,24 @@ h1 {
         margin-bottom: 15px;
     }
     
+    .hero-text {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .hero-text p {
+        font-size: 0.85em;
+    }
+    
+    .mode-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mode-btn {
+        min-width: 200px;
+    }
+    
     .card {
         width: 120px;
         height: 170px;
@@ -308,14 +347,5 @@ h1 {
         font-size: 0.9em;
         padding: 12px;
         min-height: 50px;
-    }
-    
-    .mode-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .mode-btn {
-        min-width: 200px;
     }
 }
