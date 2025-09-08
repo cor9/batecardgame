@@ -354,19 +354,18 @@ class CardGame {
                 this.instruction.classList.remove('hidden');
                 this.instruction.classList.add('visible');
 
-    // Show timer for solo mode only  <-- THIS IS THE SECTION TO CHANGE
-    if (this.gameMode === 'solo', 'group') {
-        this.timerDuration = this.extractTimerDuration(selectedInstruction);
-        if (this.timerDuration > 0) {
-            this.timerSection.classList.remove('hidden');
-            this.updateTimerDisplay();
-            this.timerRemaining = this.timerDuration;
-        } else {
-            this.timerSection.classList.add('hidden');
-        }
+   // Show timer for both solo and group modes when applicable
+if (this.gameMode === 'solo' || this.gameMode === 'group') {
+    this.timerDuration = this.extractTimerDuration(selectedInstruction);
+    if (this.timerDuration > 0) {
+        this.timerSection.classList.remove('hidden');
+        this.updateTimerDisplay();
+        this.timerRemaining = this.timerDuration;
+        // Don't start the timer automatically - let user click "Start Timer"
     } else {
         this.timerSection.classList.add('hidden');
     }
+}
 }, 200);
 
             // Update stats
