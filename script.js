@@ -232,7 +232,8 @@ updateTimerDisplay() {
                  solo: {                     
                      red: "Your favorite stroke for 45 seconds, experimenting with lube for slippery intensity.",             
                      black: "Your favorite stroke for 45 seconds, going dry for raw, gripping friction."            
-             ]        
+                 }
+             }
          };    
      }      
         
