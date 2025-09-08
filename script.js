@@ -354,20 +354,20 @@ class CardGame {
                 this.instruction.classList.remove('hidden');
                 this.instruction.classList.add('visible');
 
-                // Show timer for solo mode only
-                if (this.gameMode === 'solo') {
-                    this.timerDuration = this.extractTimerDuration(selectedInstruction);
-                    if (this.timerDuration > 0) {
-                        this.timerSection.classList.remove('hidden');
-                        this.updateTimerDisplay();
-                        this.timerRemaining = this.timerDuration;
-                    } else {
-                        this.timerSection.classList.add('hidden');
-                    }
-                } else {
-                    this.timerSection.classList.add('hidden');
-                }
-            }, 200);
+    // Show timer for solo mode only  <-- THIS IS THE SECTION TO CHANGE
+    if (this.gameMode === 'solo', 'group') {
+        this.timerDuration = this.extractTimerDuration(selectedInstruction);
+        if (this.timerDuration > 0) {
+            this.timerSection.classList.remove('hidden');
+            this.updateTimerDisplay();
+            this.timerRemaining = this.timerDuration;
+        } else {
+            this.timerSection.classList.add('hidden');
+        }
+    } else {
+        this.timerSection.classList.add('hidden');
+    }
+}, 200);
 
             // Update stats
             this.cardCount.textContent = this.drawnCount;
