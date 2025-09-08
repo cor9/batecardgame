@@ -24,12 +24,13 @@ class CardGame
     for (let deckNum = 0; deckNum < numDecks; deckNum++) {            
         suits.forEach((suit, suitIndex) => {                 
             values.forEach(value => {                    
-                deck.push({                         
-                    value: value,                         
-                    suit: suit,                         
-                    suitName: suitNames[suitIndex],                         
-                    imagePath: "cards/" + suit + "/" + value + ".png"              
-                });                 
+                deck.push({
+      value: value,
+      suit: suit,
+      suitName: suitNames[suitIndex],
+      color: (suit === 'Hearts' || suit === 'Diamonds') ? 'red' : 'black',
+      imagePath: `cards/${suit}/${value}.png`
+  });                 
             });             
         });         
     }                  
@@ -246,10 +247,12 @@ updateTimerDisplay() {
     } while (card === null);
     
     this.drawnCount++;
+           
+    this.cardElement.classList.add(card.color); // Adds 'red' or 'black' class
 
     // Animate card flip
     this.cardElement.classList.add('flip-animation');
-    
+
    setTimeout(() => {
     // Update card display
     this.cardImage.src = card.imagePath;
