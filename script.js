@@ -365,9 +365,7 @@ updateTimerDisplay() {
              <p>Deck: 104 cards (2 full decks)</p>                
              <p>Wank together and have fun!</p>            
              `;         
-         } 
-         
-         else {             
+         } else {             
              this.gameInfoTitle.textContent = "Solo Game Rules";             
              this.gameInfoContent.innerHTML = `                
              <p>Jerking and Edging - follow solo masturbation instructions!</p>                
