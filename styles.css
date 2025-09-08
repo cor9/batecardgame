@@ -324,40 +324,31 @@ h1 {
     background: linear-gradient(135deg, #388e3c 0%, #4caf50 100%);
 }
 
-.dance-btn {
-    background: linear-gradient(135deg, #f44336 0%, #ff5722 100%);
-    color: #1a1a1a;
+.timer-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 15px;
+}
+
+.timer-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    color: white;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    font-weight: 700;
-    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    margin: 0 10px;
 }
 
-.dance-btn:hover {
+.timer-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
-}
-
-.dance-stats {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: #ccc;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.dance-stats > div {
-    background: rgba(100, 100, 100, 0.2);
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: 1px solid #555;
 }
 
 /* Phase-specific styling */
