@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    font-family: font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #092b36 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -15,11 +15,11 @@ body {
 }
 
 .container {
-    background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-    border: 1px solid #4a4a4a;
-    border-radius: 16px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #0e4354 100%);
+    border: 3px solid #0f0f0f;
+    border-radius: 17px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    padding: 25px;
+    padding: 29px;
     max-width: 480px;
     width: 100%;
     text-align: center;
@@ -29,29 +29,29 @@ body {
 h1 {
     color: #ffffff;
     margin-bottom: 20px;
-    font-size: 2.2em;
+    font-size: 2.7em;
     background: linear-gradient(45deg, #00d4ff, #0099cc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 /* Hero Text Section */
 .hero-text {
     margin-bottom: 20px;
     padding: 15px;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 212, 559, 0.1) 0%, rgba(0, 135, 294, 0.1) 100%);
+    border-radius: 15px;
+    border: 3px solid rgba(0, 212, 255, 0.2);
 }
 
 .hero-text p {
-    color: #e0e0e0;
-    font-size: 0.95em;
+    color: #5f9ab8;
+    font-size: 1.25em;
     line-height: 1.4;
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .hero-text p:last-child {
@@ -78,7 +78,7 @@ h1 {
 }
 
 .mode-btn {
-    background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
+    background: linear-gradient(135deg, #3a3a3a 0%, #5a4963 100%);
     border: 2px solid #5a5a5a;
     border-radius: 16px;
     padding: 20px 15px;
@@ -92,17 +92,17 @@ h1 {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     border-color: #00d4ff;
-    background: linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 100%);
+    background: linear-gradient(135deg, #4a4a4a 0%, #382d3d 100%);
 }
 
 .mode-icon {
-    font-size: 2.5em;
+    font-size: 2.9em;
     margin-bottom: 10px;
 }
 
 .mode-title {
     color: #ffffff;
-    font-size: 1.2em;
+    font-size: 1.7em;
     font-weight: 600;
     margin-bottom: 8px;
 }
@@ -128,15 +128,15 @@ h1 {
 }
 
 .game-info-box h3 {
-    color: #00d4ff;
-    font-size: 1.3em;
-    font-weight: 600;
+    color: #507ca3;
+    font-size: 1.7em;
+    font-weight: 400;
     margin-bottom: 10px;
 }
 
 .game-info-box p {
-    color: #e0e0e0;
-    font-size: 0.95em;
+    color: ##a9bdcf;
+    font-size: 1.2em;
     line-height: 1.4;
     margin-bottom: 8px;
 }
@@ -231,7 +231,7 @@ h1 {
 }
 
 .draw-btn {
-    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    background: linear-gradient(135deg, #00d4ff 0%, ##4cc5bb 100%);
     color: #ffffff;
     border: none;
     padding: 12px 30px;
@@ -247,7 +247,7 @@ h1 {
 .draw-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
-    background: linear-gradient(135deg, #0099cc 0%, #007aa3 100%);
+    background: linear-gradient(135deg, #0099cc 0%, #2c8f87 100%);
 }
 
 .draw-btn:active {
@@ -258,11 +258,11 @@ h1 {
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
-    font-size: 0.85em;
+    font-size: 1.4em;
     color: #cccccc;
     background: rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    border-radius: 8px;
+    padding: 17px;
+    border-radius: 11px;
 }
 
 .back-btn {
@@ -309,22 +309,22 @@ h1 {
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .container {
-        padding: 20px;
-        margin: 10px;
+        padding: 29px;
+        margin: 17px;
     }
     
     h1 {
-        font-size: 1.8em;
-        margin-bottom: 15px;
+        font-size: 2.3em;
+        margin-bottom:20px;
     }
-    
+
     .hero-text {
-        padding: 12px;
-        margin-bottom: 15px;
+        padding: 19px;
+        margin-bottom: 20px;
     }
     
     .hero-text p {
-        font-size: 0.85em;
+        font-size: 2.5em;
     }
     
     .mode-buttons {
@@ -340,12 +340,12 @@ h1 {
         width: 120px;
         height: 170px;
         margin: 15px auto;
-        font-size: 1.5em;
+        font-size: 1.8em;
     }
     
     .instruction {
-        font-size: 0.9em;
-        padding: 12px;
+        font-size: 1.8em;
+        padding: 17px;
         min-height: 50px;
     }
 }
