@@ -8,7 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>BATECARDS</h1>
+        <h1>🃏 BATECARDS</h1>
+        
+        <!-- Hero Text Section -->
+        <div id="heroText" class="hero-text">
+            <p>An Edging JOI game for Guys who like Penises!</p>
+            <p>The ultimate BATOR game that turns every draw into a GOONING adventure!</p>
+            <p>Challenge yourself or play with friends - every card brings a new thrill with each stroke!</p>
+        </div>
         
         <!-- Mode Selection Screen -->
         <div id="modeSelection" class="mode-selection">
@@ -37,19 +44,20 @@
             </div>
             
             <div id="card" class="card" style="display: none;">
-                <img id="cardImage" src="" alt="Playing Card" style="width: 100%; height: 100%; object-fit: contain; border-radius: 15px;">
+                <div id="cardValue"></div>
+                <div id="cardSuit" class="suit"></div>
             </div>
             
             <div id="instruction" class="instruction hidden">
                 Click "Draw Card" to get your first command!
             </div>
 
-            <!-- Add this to your game screen, after the instruction div -->
-<div id="timerSection" class="timer-section hidden">
-    <div id="timerDisplay" class="timer-display">0:00</div>
-    <button id="startTimerBtn" class="timer-btn">Start Timer</button>
-    <button id="stopTimerBtn" class="timer-btn hidden">Stop Timer</button>
-</div>
+            <!-- Timer Section -->
+            <div id="timerSection" class="timer-section hidden">
+                <div id="timerDisplay" class="timer-display">0:00</div>
+                <button id="startTimerBtn" class="timer-btn">Start Timer</button>
+                <button id="stopTimerBtn" class="timer-btn hidden">Stop Timer</button>
+            </div>
             
             <button id="drawBtn" class="draw-btn">Draw Card</button>
             
@@ -60,19 +68,8 @@
             
             <button id="backToMode" class="back-btn">Change Mode</button>
         </div>
-        
-        <!-- Game Overview Modal -->
-        <div id="gameOverview" class="game-overview" style="display: none;">
-            <div class="overview-header">
-                <h3 id="overviewTitle">Game Overview</h3>
-                <button id="closeOverview" class="close-btn">×</button>
-            </div>
-            <div id="overviewText" class="overview-content">
-                <!-- Content filled by JavaScript -->
-            </div>
-        </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
