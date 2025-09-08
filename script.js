@@ -138,8 +138,8 @@ class CardGame {
                         black: "Choose another to edge with you and focus on cockhead for 20 seconds, applying firm pressure for deep sensation."  
                     },                
                     solo: {                    
-                        red: "Edge your cockhead for 20 seconds, circling it slowly while imagining a passionate fantasy.", 
-                        black: "Edge your cockhead for 20 seconds, tapping it rhythmically while building dark desires in your mind." 
+                        red: "Edge your cockhead for 20 seconds, circling it slowly with palm.", 
+                        black: "Edge your cockhead for 20 seconds, tapping it rhythmically." 
                     }            
                 },             
              '5': {                 
@@ -148,8 +148,8 @@ class CardGame {
                      black: "Everyone jerks FAST and HARD for 20 seconds, but must stay silent—first moan loses and edges extra 10 seconds."                 
                  },                 
                  solo: {                    
-                     red: "Jerk your dick fast and hard for 15 seconds, slapping your thigh with your free hand for rhythmic sting.",
-                     black: "Jerk your dick fast and hard for 15 seconds, gripping tighter on every fifth stroke for escalating pressure." 
+                     red: "Jerk your dick fast and hard for 15 seconds, fast breaths to build arousal.",
+                     black: "Jerk your dick fast and hard for 15 seconds, stong grip with complete strokes." 
                  }             
              },             
              '6': {                
@@ -168,8 +168,8 @@ class CardGame {
                      black: "Dare - choose someone to do a dare of your choosing, escalating if refused (add a restraining or dominant element)."               
                  },                 
                  solo: {                     
-                     red: "On all fours, slap ass and jerk for 35 seconds medium pace, arching back like performing for an admirer.",   
-                     black: "On all fours, slap ass and jerk for 35 seconds medium pace, spanking harder for a punishing vibe."               
+                     red: "On your knees, slap ass 3x and jerk for 35 seconds medium pace.",   
+                     black: "On all fours, slap ass 3x and jerk for 35 seconds medium pace."               
                  }            
              },            
              '8': {                 
@@ -178,8 +178,8 @@ class CardGame {
                      black: "Bate - start jerking and can’t stop until next 8, everyone watches and suggests tormenting adjustments."                
                  },                
                  solo: {                    
-                     red: "Edge, Eat Precum, then lick fingers clean while maintaining a steady tease on your balls.",  
-                     black: "Edge, Eat Precum, then swallow slowly while pinching your thighs for added edge."               
+                     red: "Edge, Eat Precum.",  
+                     black: "Edge, Eat Precum, then wiggle penis while biting your lower lip."               
                  }           
              },            
              '9': {                
@@ -188,8 +188,8 @@ class CardGame {
                      black: "Post a selfie - take a pic of your dick and upload online anonymously, with a daring caption challenging viewers."                
                  },                
                  solo: {                    
-                     red: "Make a 30 second wank video, narrating your strokes like a seductive ASMR session.",   
-                     black: "Make a 30 second wank video, whispering forbidden thoughts like a dark confession."               
+                     red: "Make a 10 second wank video.",   
+                     black: "Take a dick pic."               
                  }           
              },             
              '10': {               
@@ -198,8 +198,8 @@ class CardGame {
                      black: "Be a fitness instructor: command two sets of ten (pushups, etc.), with restraining twists in the exercises."                
                  },                 
                  solo: {                    
-                     red: "10 jumping jacks and 2 edges, clenching PC muscles during each jump to intensify buildup.",   
-                     black: "10 jumping jacks and 2 edges, holding breath briefly on each jump for controlled tension."                
+                     red: "5 jumping jacks and 1 edge.",   
+                     black: "5 situps and 1 edges, holding breath and stroking during situps."                
                  }            
              },           
              'J': {                
@@ -209,7 +209,7 @@ class CardGame {
                  },               
                  solo: {                  
                      red: "Corkscrew jerk for 20 seconds, twisting wrist like uncorking a bottle of heated pleasure.",   
-                     black: "Corkscrew jerk for 20 seconds, slowing the twist for a drawn-out, tormenting build."                
+                     black: "Corkscrew jerk for 20 seconds, slowing the twist for a tormenting build."                
                  }           
              },           
              'Q': {              
