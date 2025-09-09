@@ -127,17 +127,17 @@ h1 {
     text-align: left;
 }
 
-.game-info-box h3 {
+.game-info-box h4 {
     color: #507ca3;
-    font-size: 2.3em;
+    font-size: 2.1em;
     font-weight: 400;
     margin-bottom: 20px;
 }
 
 .game-info-box p {
     color: #ffffff;
-    font-size: 1.8em;
-    line-height: 1.9;
+    font-size: 1.5em;
+    line-height: 1.5;
     margin-bottom: 25px;
 }
 
@@ -314,7 +314,7 @@ h1 {
     }
     
     h1 {
-        font-size: 2.3em;
+        font-size: 2.1em;
         margin-bottom:20px;
     }
 
@@ -324,7 +324,7 @@ h1 {
     }
     
     .hero-text p {
-        font-size: 2.5em;
+        font-size: 1.5em;
     }
     
     .mode-buttons {
@@ -344,7 +344,7 @@ h1 {
     }
     
     .instruction {
-        font-size: 1.8em;
+        font-size: 1.5em;
         padding: 17px;
         min-height: 50px;
     }
