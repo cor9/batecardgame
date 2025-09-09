@@ -122,12 +122,12 @@ h1 {
     background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
     border: 1px solid #5a5a5a;
     border-radius: 12px;
-    padding: 55px;
-    margin-bottom: 50px;
+    padding: 25x;
+    margin-bottom: 30px;
     text-align: left;
 }
 
-.game-info-box h4 {
+.game-info-box h2 {
     color: #5f9ab8;
     font-size: 2.1em;
     font-weight: 400;
@@ -136,9 +136,9 @@ h1 {
 
 .game-info-box p {
     color: #ffffff;
-    font-size: 1.5em;
-    line-height: 1.5;
-    margin-bottom: 25px;
+    font-size: 1.2em;
+    line-height: 1.1;
+    margin-bottom: 15px;
 }
 
 .card {
