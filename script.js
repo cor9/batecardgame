@@ -433,6 +433,8 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
             this.gameInfoTitle.textContent = "Solo Game Rules";
             this.gameInfoContent.innerHTML = `
                 <p>Jerking and Edging - follow solo masturbation instructions!</p>
+                <br> 
+                <br>
                 <p>Deck: 52 cards (1 full deck)</p>
                 <p>Stroke yourself and enjoy!</p>
             `;
