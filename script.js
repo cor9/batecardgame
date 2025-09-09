@@ -425,7 +425,7 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
         if (mode === 'group') {
             this.gameInfoTitle.textContent = "Group Game Rules";
             this.gameInfoContent.innerHTML = `
-                <p>Playing with friends - Welcome to the CIRCLE JERK!</p>
+                <p>Welcome to the CIRCLE JERK!</p>
                 <br>
                 <p>Deck: 104 cards (2 full decks)</p>
                 <br>
@@ -434,8 +434,7 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
         } else {
             this.gameInfoTitle.textContent = "Solo Game Rules";
             this.gameInfoContent.innerHTML = `
-                <p>Jerk/Edge</p>
-                <p>Follow solo masturbation instructions!</p>
+                <p>Follow masturbation instructions!</p>
                 <br> 
                 <p>Deck: 52 cards (1 full deck)</p>
                 <br>
