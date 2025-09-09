@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 40px;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
     border: 3px solid #0f0f0f;
     border-radius: 17px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    padding: 29px;
+    padding: 60px;
     max-width: 480px;
     width: 100%;
     text-align: center;
@@ -28,7 +28,7 @@ body {
 
 h1 {
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     font-size: 2.7em;
     background: linear-gradient(45deg, #00d4ff, #0099cc);
     -webkit-background-clip: text;
@@ -39,7 +39,7 @@ h1 {
 
 /* Hero Text Section */
 .hero-text {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding: 15px;
     background: linear-gradient(135deg, rgba(0, 212, 559, 0.1) 0%, rgba(0, 135, 294, 0.1) 100%);
     border-radius: 15px;
@@ -65,7 +65,7 @@ h1 {
 
 .mode-selection h2 {
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-size: 1.6em;
     font-weight: 400;
 }
@@ -102,7 +102,7 @@ h1 {
 
 .mode-title {
     color: #ffffff;
-    font-size: 1.7em;
+    font-size: 1.9em;
     font-weight: 600;
     margin-bottom: 8px;
 }
@@ -122,23 +122,23 @@ h1 {
     background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%);
     border: 1px solid #5a5a5a;
     border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 55px;
+    margin-bottom: 50px;
     text-align: left;
 }
 
 .game-info-box h3 {
     color: #507ca3;
-    font-size: 1.7em;
+    font-size: 2.3em;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .game-info-box p {
-    color: #a9bdcf;
-    font-size: 1.2em;
-    line-height: 1.4;
-    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 1.8em;
+    line-height: 1.9;
+    margin-bottom: 25px;
 }
 
 .card {
