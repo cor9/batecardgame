@@ -41,11 +41,54 @@
                     <div class="mode-title">Solo Game</div>
                     <div class="mode-description">Play with yourself</div>
                 </button>
+                <button id="onlineMode" class="mode-btn online-btn">
+                    <div class="mode-icon">🌐</div>
+                    <div class="mode-title">Group Online</div>
+                    <div class="mode-description">Cams + chat with buds anywhere</div>
+                </button>
             </div>
         </div>
         
+        <!-- Online: name + host/join (hidden initially) -->
+        <div id="onlineHomeScreen" class="screen hidden">
+            <div class="panel" style="background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%); border: 1px solid #5a5a5a; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left;">
+                <h2 style="color:#5f9ab8; font-weight:400; margin-bottom:12px;">🎭 Your Name</h2>
+                <input type="text" id="onlineNameInput" class="text-input name-input" placeholder="What do the bros call you?" maxlength="16">
+                <p class="tip">📹 You'll be asked for camera &amp; mic — streams go directly browser-to-browser, nothing is uploaded anywhere.</p>
+            </div>
+            <div class="home-actions">
+                <button id="hostRoomBtn" class="draw-btn">⚔️ Host a Circle</button>
+                <div class="join-row">
+                    <input type="text" id="joinCodeInput" class="text-input" placeholder="Room code" maxlength="6">
+                    <button id="joinRoomBtn" class="draw-btn">🚪 Join</button>
+                </div>
+                <p id="connectStatus" class="muted"></p>
+            </div>
+            <button id="onlineBackBtn" class="back-btn">Back</button>
+        </div>
+
+        <!-- Online: lobby (hidden initially) -->
+        <div id="onlineLobbyScreen" class="screen hidden">
+            <div id="sharePanel" class="panel" style="background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%); border: 1px solid #5a5a5a; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left;">
+                <h2 style="color:#5f9ab8; font-weight:400; margin-bottom:12px;">🔗 Invite Your Bros</h2>
+                <div class="share-row"><span id="shareLink" class="share-link"></span></div>
+                <div class="share-actions">
+                    <button id="copyLinkBtn" class="timer-btn">Copy</button>
+                    <button id="textLinkBtn" class="timer-btn">📤 Text It</button>
+                </div>
+                <p class="tip">They open the link, allow cam, and land right here in the circle.</p>
+            </div>
+            <div id="videoGridLobby" class="video-grid"></div>
+            <div id="lobbyPlayers" class="turn-order"></div>
+            <button id="startCircleBtn" class="draw-btn hidden">⚔️ Start the Circle</button>
+            <p id="waitingHostNote" class="muted hidden">Waiting for the host to start…</p>
+            <button id="leaveLobbyBtn" class="back-btn">Leave</button>
+        </div>
+
         <!-- Game Screen (hidden initially) -->
         <div id="gameScreen" class="game-screen hidden">
+            <div id="videoGridGame" class="video-grid"></div>
+            <div id="turnOrder" class="turn-order hidden"></div>
             <div id="gameInfo" class="game-info-box">
                 <h2 id="gameInfoTitle">Game Rules</h2>
                 <div id="gameInfoContent">
@@ -79,6 +122,17 @@
         </div>
     </div>
 
+    <!-- Media controls -->
+    <div id="mediaBar" class="media-bar hidden">
+        <button id="toggleMicBtn" class="media-btn" title="Toggle mic">🎤</button>
+        <button id="toggleCamBtn" class="media-btn" title="Toggle camera">📷</button>
+    </div>
+
+    <!-- Chat mount point -->
+    <div id="chatRoot"></div>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="p2p.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

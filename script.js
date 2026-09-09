@@ -67,6 +67,7 @@ class CardGame {
     }
 
     startTimer() {
+        if (window.__onlineActive) return; // online mode owns the timer buttons
         if (this.timerDuration <= 0) return;
 
         this.timerRemaining = this.timerDuration;
@@ -85,6 +86,7 @@ class CardGame {
     }
 
     stopTimer() {
+        if (window.__onlineActive) return; // online mode owns the timer buttons
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
@@ -279,6 +281,7 @@ class CardGame {
     }
 
     drawCard() {
+        if (window.__onlineActive) return; // online mode owns the shared buttons
         if (this.deck.length === 0) {
             this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
             this.instruction.classList.remove('hidden');
@@ -403,6 +406,7 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
     }
 
     backToModeSelection() {
+        if (window.__onlineActive) return; // online mode owns the back button
         // Hide game screen and show mode selection
         this.gameScreen.classList.add('hidden');
         this.gameScreen.classList.remove('visible');
@@ -446,5 +450,480 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
 
 // Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new CardGame();
+    window.__cardGame = new CardGame();
 });
+
+
+/* ============================================================
+   ONLINE MODE — P2P cams + chat + synced circle (p2p.js)
+   Host runs the deck and broadcasts; peers render + act.
+   ============================================================ */
+(function () {
+    const ROOM_PREFIX = 'bate';
+
+    let p2p = null;
+    let chat = null;
+    let onlineDeck = null;
+
+    window.__onlineActive = false;
+
+    // Host-authoritative snapshot (peers hold a copy)
+    const S = {
+        phase: 'lobby',        // lobby | play
+        players: [],           // [{id,name}]
+        turnIdx: 0,
+        drawn: 0,
+        card: null,            // {value,suit,suitName,color,imagePath}
+        instruction: '',
+        duration: 0,
+        deckLen: 104,
+        deckEmpty: false
+    };
+
+    const remoteStreams = new Map();
+    const net = { timer: null, running: false };
+
+    const $ = (id) => document.getElementById(id);
+    const me = () => p2p && p2p.me;
+    const isHost = () => p2p && p2p.isHost;
+    const myTurn = () => S.players.length && S.players[S.turnIdx].id === (me() && me().id);
+    const canAct = () => myTurn() || isHost();
+
+    function showOnlineScreen(which) {
+        $('modeSelection').classList.add('hidden');
+        $('gameScreen').classList.add('hidden');
+        $('onlineHomeScreen').style.display = which === 'home' ? '' : 'none';
+        $('onlineLobbyScreen').style.display = which === 'lobby' ? '' : 'none';
+        if (which === 'game') {
+            $('gameScreen').classList.remove('hidden');
+            $('gameScreen').classList.add('visible');
+        }
+    }
+
+    /* ---------- connect ---------- */
+
+    async function connect(asHost, code) {
+        const name = $('onlineNameInput').value.trim() || 'Gooner ' + Math.floor(Math.random() * 90 + 10);
+        $('connectStatus').textContent = 'Getting your cam ready…';
+
+        p2p = new P2PRoom({ prefix: ROOM_PREFIX });
+        p2p.onRosterChange = () => {
+            if (isHost() && S.phase === 'lobby') broadcast();
+            renderLobby();
+        };
+        p2p.onStream = (id, who, stream) => {
+            remoteStreams.set(id, stream);
+            addTile(id, who, stream, false);
+        };
+        p2p.onStreamRemoved = (id) => { remoteStreams.delete(id); removeTile(id); };
+        p2p.onPeerGone = (id, who) => {
+            chat && chat.addMessage({ name: '', text: `${who} left the circle`, system: true });
+            if (isHost() && S.phase === 'play') {
+                const leavingIdx = S.players.findIndex(p => p.id === id);
+                S.players = S.players.filter(p => p.id !== id);
+                if (leavingIdx > -1 && leavingIdx <= S.turnIdx && S.turnIdx > 0) S.turnIdx--;
+                if (S.players.length) S.turnIdx = S.turnIdx % S.players.length;
+                broadcast();
+            }
+        };
+        p2p.onHostGone = () => {
+            alert('The host left — circle over.');
+            location.hash = '';
+            location.reload();
+        };
+        p2p.onHostMessage = onHostMessage;
+        p2p.onPeerMessage = onPeerAction;
+        p2p.onAnyMessage = (peerId, msg) => {
+            if (msg && msg.type === 'chat') chat && chat.addMessage({ name: msg.name, text: msg.text, self: false });
+        };
+        p2p.onError = (err) => { $('connectStatus').textContent = '⚠️ ' + err.message; };
+
+        try {
+            if (asHost) {
+                const link = await p2p.host(name);
+                $('shareLink').textContent = link;
+            } else {
+                $('connectStatus').textContent = 'Joining circle…';
+                await p2p.join(name, code);
+            }
+        } catch (err) {
+            $('connectStatus').textContent = '⚠️ ' + (err.message || 'Could not connect.');
+            return;
+        }
+
+        chat = mountChatUI($('chatRoot'), {
+            selfName: name,
+            onSend: (text) => {
+                p2p.sendAll({ type: 'chat', name: me().name, text });
+                chat.addMessage({ name: me().name, text, self: true });
+            }
+        });
+
+        window.__onlineActive = true;
+        $('mediaBar').classList.remove('hidden');
+        if (isHost()) $('startCircleBtn').classList.remove('hidden');
+        else $('waitingHostNote').classList.remove('hidden');
+
+        showOnlineScreen('lobby');
+        setTiles();
+        renderLobby();
+        $('connectStatus').textContent = '';
+    }
+
+    /* ---------- video tiles ---------- */
+
+    function activeGrid() {
+        if ($('gameScreen').classList.contains('visible')) return $('videoGridGame');
+        return $('videoGridLobby');
+    }
+
+    function setTiles() {
+        const grid = activeGrid();
+        if (!grid || !p2p) return;
+        grid.innerHTML = '';
+        addTile(me().id, me().name + ' (you)', p2p.localStream, true);
+        p2p.roster.forEach(p => {
+            if (p.id !== me().id && remoteStreams.has(p.id)) addTile(p.id, p.name, remoteStreams.get(p.id), false);
+        });
+    }
+
+    function addTile(peerId, label, stream, muted) {
+        const grid = activeGrid();
+        if (!grid) return;
+        let tile = grid.querySelector(`[data-peer="${peerId}"]`);
+        if (!tile) {
+            tile = document.createElement('div');
+            tile.className = 'video-tile';
+            tile.dataset.peer = peerId;
+            tile.innerHTML = '<video autoplay playsinline></video><span class="tile-label"></span>';
+            grid.appendChild(tile);
+        }
+        const v = tile.querySelector('video');
+        v.muted = muted;
+        if (v.srcObject !== stream) v.srcObject = stream;
+        tile.querySelector('.tile-label').textContent = label;
+    }
+
+    function removeTile(peerId) {
+        document.querySelectorAll(`[data-peer="${peerId}"]`).forEach(t => t.remove());
+    }
+
+    /* ---------- state sync ---------- */
+
+    function broadcast() {
+        if (isHost()) p2p.hostBroadcast({ type: 'state', game: { ...S } });
+    }
+
+    function onHostMessage(msg) {
+        if (!msg || typeof msg !== 'object') return;
+        if (msg.type === 'state') {
+            const wasPlaying = S.phase === 'play';
+            Object.assign(S, msg.game);
+            if (S.phase === 'play' && !wasPlaying) {
+                prepGameScreen();
+                showOnlineScreen('game');
+            }
+            renderLobby();
+            renderGame();
+        }
+        if (msg.type === 'timer') {
+            if (msg.op === 'start') runNetTimer(msg);
+            if (msg.op === 'stop') stopNetTimer();
+            if (msg.op === 'end') { stopNetTimer(); $('timerDisplay').textContent = "Time's up!"; }
+        }
+    }
+
+    function onPeerAction(peerId, name, msg) {
+        if (!msg || typeof msg !== 'object') return;
+        const actorAllowed = myTurnActorId() === peerId || peerId === me().id;
+
+        if (msg.type === 'timerReq' && msg.op === 'start') {
+            const allowed = myTurnActorId() === peerId;
+            if (!allowed) return;
+            p2p.hostBroadcast({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
+            runNetTimer({ duration: S.duration, at: Date.now() });
+            return;
+        }
+
+        if (msg.type !== 'action' || !actorAllowed) return;
+        if (msg.op === 'draw') hostDrawCard();
+        if (msg.op === 'newDeck') hostNewDeck(false);
+    }
+
+    function myTurnActorId() {
+        return S.players.length ? S.players[S.turnIdx].id : null;
+    }
+
+    /* ---------- host deck logic ---------- */
+
+    function hostStartCircle() {
+        S.players = p2p.roster.map(p => ({ id: p.id, name: p.name }));
+        S.phase = 'play';
+        hostNewDeck(true);
+    }
+
+    function hostNewDeck(first) {
+        onlineDeck = window.__cardGame.createDeck(2);
+        S.drawn = 0;
+        S.turnIdx = 0;
+        S.card = null;
+        S.deckEmpty = false;
+        S.deckLen = onlineDeck.length;
+        S.instruction = first
+            ? 'Circle up! Draw rights go around the circle — follow every card together or on your turn!'
+            : 'Fresh deck! Keep going, bros.';
+        S.duration = 0;
+        p2p.hostBroadcast({ type: 'timer', op: 'stop' });
+        broadcast();
+    }
+
+    function hostDrawCard() {
+        if (!onlineDeck || S.deckEmpty) return;
+
+        let card = null, attempts = 0;
+        while (!card) {
+            if (onlineDeck.length === 0) {
+                S.deckEmpty = true;
+                S.card = null;
+                S.instruction = '🎉 Deck complete! Host can deal a new deck for round 2.';
+                S.duration = 0;
+                broadcast();
+                return;
+            }
+            card = onlineDeck.pop();
+            attempts++;
+            if (S.drawn < 5 && card.value === 'A') {
+                onlineDeck.unshift(card);
+                window.__cardGame.shuffleDeck(onlineDeck);
+                card = null;
+            }
+            if (attempts > 50) break;
+        }
+
+        S.drawn++;
+        S.card = card;
+
+        const opts = window.__cardGame.instructions[card.value];
+        S.instruction = opts ? opts.group[card.color] : 'No instruction found for ' + card.value;
+        S.duration = window.__cardGame.extractTimerDuration(S.instruction);
+        S.deckLen = onlineDeck.length;
+
+        // advance turn
+        if (S.players.length) S.turnIdx = (S.turnIdx + 1) % S.players.length;
+
+        broadcast();
+    }
+
+    /* ---------- timer sync ---------- */
+
+    function doTimerStart() {
+        if (S.duration <= 0) return;
+        if (isHost()) {
+            p2p.hostBroadcast({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
+            runNetTimer({ duration: S.duration, at: Date.now() });
+        } else {
+            p2p.sendToHost({ type: 'timerReq', op: 'start' });
+        }
+    }
+
+    function runNetTimer({ duration, at }) {
+        stopNetTimer(false);
+        net.running = true;
+        const tick = () => {
+            const remaining = duration - (Date.now() - at) / 1000;
+            $('timerDisplay').textContent = remaining <= 0 ? "0:00" : fmt(remaining);
+            if (remaining <= 0) {
+                stopNetTimer(false);
+                $('timerDisplay').textContent = "Time's up!";
+                if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'end' });
+            }
+        };
+        tick();
+        net.timer = setInterval(tick, 250);
+        syncTimerButtons();
+    }
+
+    function stopNetTimer(updateButtons = true) {
+        if (net.timer) clearInterval(net.timer);
+        net.timer = null;
+        net.running = false;
+        if (updateButtons) syncTimerButtons();
+    }
+
+    function fmt(t) {
+        t = Math.max(0, Math.round(t));
+        return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+    }
+
+    /* ---------- rendering ---------- */
+
+    function renderLobby() {
+        if (!p2p) return;
+        const wrap = $('lobbyPlayers');
+        wrap && (wrap.innerHTML = '');
+        p2p.roster.forEach((p, i) => {
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            chip.textContent = (i === 0 ? '👑 ' : '') + p.name + (p.id === me().id ? ' (you)' : '');
+            wrap && wrap.appendChild(chip);
+        });
+    }
+
+    function prepGameScreen() {
+        $('turnOrder').classList.remove('hidden');
+        $('gameInfoTitle').textContent = 'Online Circle Rules';
+        $('gameInfoContent').innerHTML = `
+            <p>Welcome to the ONLINE CIRCLE JERK!</p>
+            <br>
+            <p>Draw rights rotate around the circle. Follow every card — together.</p>
+        `;
+        setTiles();
+    }
+
+    function renderGame() {
+        // players chips
+        const wrap = $('turnOrder');
+        wrap.innerHTML = '';
+        S.players.forEach((p, i) => {
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            if (i < S.turnIdx && S.drawn >= S.players.length) chip.classList.add('done');
+            if (i === S.turnIdx) chip.classList.add('up-next');
+            chip.textContent = p.name + (p.id === (me() && me().id) ? ' (you)' : '');
+            wrap.appendChild(chip);
+        });
+
+        // card
+        const cardEl = $('card');
+        if (S.card) {
+            $('cardImage').src = S.card.imagePath;
+            $('cardImage').alt = S.card.value + ' of ' + S.card.suit;
+            cardEl.className = 'card ' + S.card.suitName + ' flip-animation';
+            cardEl.style.display = 'flex';
+        } else {
+            cardEl.style.display = 'none';
+        }
+
+        // instruction
+        $('instruction').textContent = S.instruction || 'Waiting for the host…';
+        $('instruction').classList.remove('hidden');
+        $('instruction').classList.add('visible');
+
+        // stats
+        $('cardCount').textContent = S.drawn;
+        $('deckCount').textContent = S.deckLen;
+
+        // timer section
+        if (!net.running) $('timerDisplay').textContent = fmt(S.duration || 0);
+        $('timerSection').style.display = S.duration > 0 ? '' : 'none';
+
+        syncTimerButtons();
+        syncDrawButton();
+    }
+
+    function syncDrawButton() {
+        const btn = $('drawBtn');
+        if (S.deckEmpty) {
+            btn.style.display = isHost() ? '' : 'none';
+            btn.textContent = '🔄 New Deck (Host)';
+            return;
+        }
+        btn.style.display = canAct() ? '' : 'none';
+        btn.textContent = myTurn() ? 'Draw Your Card' : `Draw (${S.players[S.turnIdx] ? S.players[S.turnIdx].name : '…'})`;
+    }
+
+    function syncTimerButtons() {
+        const canTime = canAct() && S.duration > 0;
+        $('startTimerBtn').style.display = canTime && !net.running ? '' : 'none';
+        $('stopTimerBtn').style.display = canTime && net.running ? '' : 'none';
+    }
+
+    /* ---------- events ---------- */
+
+    function init() {
+        $('onlineMode').addEventListener('click', () => {
+            $('modeSelection').classList.add('hidden');
+            showOnlineScreen('home');
+        });
+        $('onlineBackBtn').addEventListener('click', () => {
+            $('onlineHomeScreen').style.display = 'none';
+            $('modeSelection').classList.remove('hidden');
+        });
+
+        $('hostRoomBtn').addEventListener('click', () => connect(true));
+        $('joinRoomBtn').addEventListener('click', () => {
+            const code = $('joinCodeInput').value.trim().toLowerCase();
+            if (code.length !== 6) { $('connectStatus').textContent = 'Enter the 6-character room code.'; return; }
+            connect(false, code);
+        });
+
+        const m = location.hash.match(/#join=([a-z0-9]{6})/i);
+        if (m) {
+            $('modeSelection').classList.add('hidden');
+            showOnlineScreen('home');
+            $('joinCodeInput').value = m[1].toLowerCase();
+            $('connectStatus').textContent = 'Link loaded — enter your name and hit Join.';
+            $('onlineNameInput').focus();
+        }
+
+        $('copyLinkBtn').addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText($('shareLink').textContent);
+                $('copyLinkBtn').textContent = 'Copied!';
+                setTimeout(() => ($('copyLinkBtn').textContent = 'Copy'), 1500);
+            } catch (_) {}
+        });
+        $('textLinkBtn').addEventListener('click', async () => {
+            const url = $('shareLink').textContent;
+            if (navigator.share) {
+                try { await navigator.share({ title: 'BATECARDS Online Circle', text: 'Jerk with me — join my circle:', url }); return; } catch (_) {}
+            }
+            try { await navigator.clipboard.writeText(url); alert('Link copied — text it to your buds!'); } catch (_) {}
+        });
+        $('startCircleBtn').addEventListener('click', () => {
+            hostStartCircle();
+            prepGameScreen();
+            showOnlineScreen('game');
+        });
+        $('leaveLobbyBtn').addEventListener('click', () => { p2p && p2p.destroy(); location.hash = ''; location.reload(); });
+
+        // online overrides for the shared game buttons (guarded by __onlineActive)
+        drawIntercept();
+        $('startTimerBtn').addEventListener('click', () => { if (window.__onlineActive) doTimerStart(); }, true);
+        $('stopTimerBtn').addEventListener('click', () => {
+            if (!window.__onlineActive) return;
+            stopNetTimer();
+            if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'stop' });
+        }, true);
+
+        $('backToMode').addEventListener('click', () => {
+            if (!window.__onlineActive) return;
+            p2p && p2p.destroy();
+            location.hash = '';
+            location.reload();
+        }, true);
+
+        $('toggleMicBtn').addEventListener('click', () => {
+            const on = p2p && p2p.toggleMic();
+            $('toggleMicBtn').classList.toggle('media-off', !on);
+        });
+        $('toggleCamBtn').addEventListener('click', () => {
+            const on = p2p && p2p.toggleCam();
+            $('toggleCamBtn').classList.toggle('media-off', !on);
+        });
+    }
+
+    function drawIntercept() {
+        // CardGame.drawCard() early-returns when __onlineActive, so this
+        // plain listener is the only draw path while online.
+        $('drawBtn').addEventListener('click', () => {
+            if (!window.__onlineActive) return;
+            if (S.deckEmpty) { if (isHost()) hostNewDeck(false); return; }
+            if (!canAct()) return;
+            if (isHost()) hostDrawCard();
+            else p2p.sendToHost({ type: 'action', op: 'draw' });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+})();
