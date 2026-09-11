@@ -270,19 +270,46 @@ class CardGame {
         this.groupModeBtn.addEventListener('click', () => this.selectMode('group'));
         this.soloModeBtn.addEventListener('click', () => this.selectMode('solo'));
 
-        this.startTimerBtn.addEventListener('click', () => this.startTimer());
-        this.stopTimerBtn.addEventListener('click', () => this.stopTimer());
+        this.startTimerBtn.addEventListener('click', () => {
+            if (window.__bateOnlineControls && window.__bateOnlineControls.active()) {
+                window.__bateOnlineControls.startTimer();
+                return;
+            }
+            this.startTimer();
+        });
+        this.stopTimerBtn.addEventListener('click', () => {
+            if (window.__bateOnlineControls && window.__bateOnlineControls.active()) {
+                window.__bateOnlineControls.stopTimer();
+                return;
+            }
+            this.stopTimer();
+        });
 
         // Regular game events
-        this.drawBtn.addEventListener('click', () => this.drawCard());
+        this.drawBtn.addEventListener('click', () => {
+            if (window.__bateOnlineControls && window.__bateOnlineControls.active()) {
+                window.__bateOnlineControls.draw();
+                return;
+            }
+            this.drawCard();
+        });
 
         // Back button
-        this.backToModeBtn.addEventListener('click', () => this.backToModeSelection());
+        this.backToModeBtn.addEventListener('click', () => {
+            if (window.__bateOnlineControls && window.__bateOnlineControls.active()) {
+                window.__bateOnlineControls.leave();
+                return;
+            }
+            this.backToModeSelection();
+        });
     }
 
     drawCard() {
         if (window.__onlineActive) return; // online mode owns the shared buttons
-        if (!this.deck) return;            // online circle is using the shared buttons
+        if (!this.deck) {
+            console.warn('[bate] stray drawCard with no deck — ignored');
+            return;
+        }
         if (this.deck.length === 0) {
             this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
             this.instruction.classList.remove('hidden');
@@ -517,19 +544,25 @@ document.addEventListener('DOMContentLoaded', () => {
         $('connectStatus').textContent = 'Getting your cam ready…';
 
         p2p = new P2PRoom({ prefix: ROOM_PREFIX, requireMedia: false }); // data channels only
-        p2p.onRosterChange = () => {
-            if (isHost() && S.phase === 'lobby') broadcast();
+        p2p.onRosterChange = (roster) => {
+            if (isHost() && S.phase === 'lobby') {
+                broadcast();
+            } else if (isHost() && S.phase === 'play') {
+                const rosterIds = new Set(roster.map(player => player.id));
+                S.players = S.players.filter(player => rosterIds.has(player.id));
+                roster.forEach(player => {
+                    if (!S.players.some(existing => existing.id === player.id)) {
+                        S.players.push({ id: player.id, name: player.name });
+                    }
+                });
+                if (S.players.length) S.turnIdx %= S.players.length;
+                broadcast();
+                renderGame();
+            }
             renderLobby();
         };
         p2p.onPeerGone = (id, who) => {
             chat && chat.addMessage({ name: '', text: `${who} left the circle`, system: true });
-            if (isHost() && S.phase === 'play') {
-                const leavingIdx = S.players.findIndex(p => p.id === id);
-                S.players = S.players.filter(p => p.id !== id);
-                if (leavingIdx > -1 && leavingIdx <= S.turnIdx && S.turnIdx > 0) S.turnIdx--;
-                if (S.players.length) S.turnIdx = S.turnIdx % S.players.length;
-                broadcast();
-            }
         };
         p2p.onHostGone = () => {
             alert('The host left — circle over.');
@@ -583,16 +616,12 @@ document.addEventListener('DOMContentLoaded', () => {
             removeTile(id);
         };
         lk.onError = (err) => { $('connectStatus').textContent = '⚠️ ' + err.message; };
-        await lk.connect(p2p.hostId, p2p.me.id, name);
-
         window.__onlineActive = true;
         $('mediaBar').classList.remove('hidden');
-        if (isHost()) $('startCircleBtn').classList.remove('hidden');
-        else $('waitingHostNote').classList.remove('hidden');
+        lk.connect(p2p.hostId, p2p.me.id, name).catch(err => lk.onError(err));
 
-        showOnlineScreen('lobby');
+        renderCurrentPhase();
         setTiles();
-        renderLobby();
         $('connectStatus').textContent = '';
     }
 
@@ -640,14 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function onHostMessage(msg) {
         if (!msg || typeof msg !== 'object') return;
         if (msg.type === 'state') {
-            const wasPlaying = S.phase === 'play';
             Object.assign(S, msg.game);
-            if (S.phase === 'play' && !wasPlaying) {
-                prepGameScreen();
-                showOnlineScreen('game');
-            }
-            renderLobby();
-            renderGame();
+            renderCurrentPhase();
         }
         if (msg.type === 'timer') {
             if (msg.op === 'start') runNetTimer(msg);
@@ -683,6 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
         S.players = p2p.roster.map(p => ({ id: p.id, name: p.name }));
         S.phase = 'play';
         hostNewDeck(true);
+        renderCurrentPhase();
     }
 
     function hostNewDeck(first) {
@@ -698,6 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         S.duration = 0;
         p2p.hostBroadcast({ type: 'timer', op: 'stop' });
         broadcast();
+        if (S.phase === 'play') renderGame();
     }
 
     function hostDrawCard() {
@@ -735,6 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (S.players.length) S.turnIdx = (S.turnIdx + 1) % S.players.length;
 
         broadcast();
+        renderGame();
     }
 
     /* ---------- timer sync ---------- */
@@ -801,6 +827,22 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Draw rights rotate around the circle. Follow every card — together.</p>
         `;
         setTiles();
+    }
+
+    function renderCurrentPhase() {
+        if (S.phase === 'play') {
+            $('startCircleBtn').classList.add('hidden');
+            $('waitingHostNote').classList.add('hidden');
+            prepGameScreen();
+            showOnlineScreen('game');
+            renderGame();
+            return;
+        }
+
+        showOnlineScreen('lobby');
+        $('startCircleBtn').classList.toggle('hidden', !isHost());
+        $('waitingHostNote').classList.toggle('hidden', isHost());
+        renderLobby();
     }
 
     function renderGame() {
@@ -907,26 +949,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         $('startCircleBtn').addEventListener('click', () => {
             hostStartCircle();
-            prepGameScreen();
-            showOnlineScreen('game');
         });
         $('leaveLobbyBtn').addEventListener('click', () => { p2p && p2p.destroy(); location.hash = ''; location.reload(); });
-
-        // online overrides for the shared game buttons (guarded by __onlineActive)
-        drawIntercept();
-        $('startTimerBtn').addEventListener('click', () => { if (window.__onlineActive) doTimerStart(); }, true);
-        $('stopTimerBtn').addEventListener('click', () => {
-            if (!window.__onlineActive) return;
-            stopNetTimer();
-            if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'stop' });
-        }, true);
-
-        $('backToMode').addEventListener('click', () => {
-            if (!window.__onlineActive) return;
-            p2p && p2p.destroy();
-            location.hash = '';
-            location.reload();
-        }, true);
 
         $('toggleMicBtn').addEventListener('click', async () => {
             const on = lk ? await lk.toggleMic() : false;
@@ -938,17 +962,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function drawIntercept() {
-        // CardGame.drawCard() early-returns when __onlineActive, so this
-        // plain listener is the only draw path while online.
-        $('drawBtn').addEventListener('click', () => {
-            if (!window.__onlineActive) return;
+    window.__bateOnlineControls = {
+        active: () => window.__onlineActive,
+        draw: () => {
             if (S.deckEmpty) { if (isHost()) hostNewDeck(false); return; }
             if (!canAct()) return;
             if (isHost()) hostDrawCard();
             else p2p.sendToHost({ type: 'action', op: 'draw' });
-        });
-    }
+        },
+        startTimer: () => doTimerStart(),
+        stopTimer: () => {
+            stopNetTimer();
+            if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'stop' });
+        },
+        leave: () => {
+            p2p && p2p.destroy();
+            location.hash = '';
+            location.reload();
+        }
+    };
 
     document.addEventListener('DOMContentLoaded', init);
 })();
