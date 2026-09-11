@@ -492,12 +492,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showOnlineScreen(which) {
         $('modeSelection').classList.add('hidden');
-        $('gameScreen').classList.add('hidden');
-        $('onlineHomeScreen').style.display = which === 'home' ? '' : 'none';
-        $('onlineLobbyScreen').style.display = which === 'lobby' ? '' : 'none';
+        ['onlineHomeScreen', 'onlineLobbyScreen'].forEach((id) => {
+            const el = $(id);
+            const show = (which === 'home' && id === 'onlineHomeScreen') ||
+                         (which === 'lobby' && id === 'onlineLobbyScreen');
+            // club.css interprets .hidden as display:none!important, so keep
+            // both the class and inline style consistent to avoid dead screens
+            el.classList.toggle('hidden', !show);
+            el.style.display = show ? '' : 'none';
+        });
         if (which === 'game') {
             $('gameScreen').classList.remove('hidden');
             $('gameScreen').classList.add('visible');
+        } else {
+            $('gameScreen').classList.add('hidden');
         }
     }
 
@@ -860,7 +868,9 @@ document.addEventListener('DOMContentLoaded', () => {
             showOnlineScreen('home');
         });
         $('onlineBackBtn').addEventListener('click', () => {
-            $('onlineHomeScreen').style.display = 'none';
+            const el = $('onlineHomeScreen');
+            el.classList.add('hidden');
+            el.style.display = 'none';
             $('modeSelection').classList.remove('hidden');
         });
 
