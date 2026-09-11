@@ -282,6 +282,7 @@ class CardGame {
 
     drawCard() {
         if (window.__onlineActive) return; // online mode owns the shared buttons
+        if (!this.deck) return;            // online circle is using the shared buttons
         if (this.deck.length === 0) {
             this.instruction.textContent = "🎉 Deck complete! Refresh to start over!";
             this.instruction.classList.remove('hidden');
