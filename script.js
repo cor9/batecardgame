@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = $('onlineNameInput').value.trim() || 'Gooner ' + Math.floor(Math.random() * 90 + 10);
         $('connectStatus').textContent = 'Getting your cam ready…';
 
-        p2p = new P2PRoom({ prefix: ROOM_PREFIX, requireMedia: false }); // data channels only
+        p2p = new P2PRoom({ prefix: ROOM_PREFIX, requireMedia: false, maxPeers: 5 }); // data channels only
         p2p.onRosterChange = (roster) => {
             if (isHost() && S.phase === 'lobby') {
                 broadcast();
