@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             if (asHost) {
-                const link = await p2p.host(name);
+                const link = await p2p.host(name, (() => { const c = localStorage.getItem("batorRoom:" + ROOM_PREFIX); return c ? { code: c } : {}; })());
                 $('shareLink').textContent = link;
                 p2p.setRoomMeta({ title: "BateCards Circle", password: $("passwordInput").value.trim() });
                 // hub directory connects in the background so it never blocks the room
@@ -946,6 +946,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 try { await navigator.share({ title: 'BATECARDS Online Circle', text: 'Jerk with me — join my circle:', url }); return; } catch (_) {}
             }
             try { await navigator.clipboard.writeText(url); alert('Link copied — text it to your buds!'); } catch (_) {}
+        });
+
+        // Save this room as MY permanent link (device-local)
+        $('saveRoomBtn') && $('saveRoomBtn').addEventListener('click', () => {
+            localStorage.setItem('batorRoom:' + ROOM_PREFIX, p2p.roomCode);
+            $('saveRoomBtn').textContent = '🔖 Saved! This is YOUR link now';
+            $('saveRoomBtn').style.borderColor = '#3dff73';
+            setTimeout(() => { $('saveRoomBtn').textContent = '🔖 Permanent Link'; }, 2500);
         });
         $('startCircleBtn').addEventListener('click', () => {
             hostStartCircle();
