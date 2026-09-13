@@ -56,7 +56,7 @@ class CardGame {
             const match = instruction.match(pattern);
             if (match) {
                 const value = parseInt(match[1]);
-                if (pattern.source.includes('minute')) {
+                if (pattern.source.includes('min')) {
                     return value * 60;
                 }
                 return value;
