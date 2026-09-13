@@ -569,11 +569,9 @@ document.addEventListener('DOMContentLoaded', () => {
             location.hash = '';
             location.reload();
         };
-        p2p.onHostMessage = onHostMessage;
+        p2p.onHostMessage = () => {};
         p2p.onPeerMessage = onPeerAction;
-        p2p.onAnyMessage = (peerId, msg) => {
-            if (msg && msg.type === 'chat') chat && chat.addMessage({ name: msg.name, text: msg.text, self: false });
-        };
+        p2p.onAnyMessage = () => {};
         p2p.onError = (err) => { $('connectStatus').textContent = '⚠️ ' + err.message; };
 
         try {
@@ -595,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chat = mountChatUI($('chatRoot'), {
             selfName: name,
             onSend: (text) => {
-                p2p.sendAll({ type: 'chat', name: me().name, text });
+                lk && lk.sendToAll({ type: 'chat', name: me().name, text });
                 chat.addMessage({ name: me().name, text, self: true });
             }
         });
@@ -616,6 +614,19 @@ document.addEventListener('DOMContentLoaded', () => {
             removeTile(id);
         };
         lk.onError = (err) => { $('connectStatus').textContent = '⚠️ ' + err.message; };
+        // LiveKit data pipe: chat + all game sync (host broadcasts <-> actions)
+        lk.onData = (fromId, msg) => {
+            if (!msg || typeof msg !== 'object') return;
+            if (msg.type === 'chat') {
+                chat && chat.addMessage({ name: msg.name, text: msg.text, self: msg.name === (me() && me().name) });
+                return;
+            }
+            if (isHost()) {
+                onPeerAction(fromId, (S.players.find((p) => p.id === fromId) || {}).name || 'bro', msg);
+            } else {
+                onHostMessage(msg);
+            }
+        };
         window.__onlineActive = true;
         $('mediaBar').classList.remove('hidden');
         lk.connect(p2p.hostId, p2p.me.id, name).catch(err => lk.onError(err));
@@ -663,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ---------- state sync ---------- */
 
     function broadcast() {
-        if (isHost()) p2p.hostBroadcast({ type: 'state', game: { ...S } });
+        if (isHost()) lk && lk.sendToAll({ type: 'state', game: { ...S } });
     }
 
     function onHostMessage(msg) {
@@ -686,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (msg.type === 'timerReq' && msg.op === 'start') {
             const allowed = myTurnActorId() === peerId;
             if (!allowed) return;
-            p2p.hostBroadcast({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
+            lk && lk.sendToAll({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
             runNetTimer({ duration: S.duration, at: Date.now() });
             return;
         }
@@ -720,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? 'Circle up! Draw rights go around the circle — follow every card together or on your turn!'
             : 'Fresh deck! Keep going, bros.';
         S.duration = 0;
-        p2p.hostBroadcast({ type: 'timer', op: 'stop' });
+        lk && lk.sendToAll({ type: 'timer', op: 'stop' });
         broadcast();
         if (S.phase === 'play') renderGame();
     }
@@ -768,10 +779,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function doTimerStart() {
         if (S.duration <= 0) return;
         if (isHost()) {
-            p2p.hostBroadcast({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
+            lk && lk.sendToAll({ type: 'timer', op: 'start', duration: S.duration, at: Date.now() });
             runNetTimer({ duration: S.duration, at: Date.now() });
         } else {
-            p2p.sendToHost({ type: 'timerReq', op: 'start' });
+            lk && lk.sendToAll({ type: 'timerReq', op: 'start' });
         }
     }
 
@@ -784,7 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (remaining <= 0) {
                 stopNetTimer(false);
                 $('timerDisplay').textContent = "Time's up!";
-                if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'end' });
+                if (isHost()) lk && lk.sendToAll({ type: 'timer', op: 'end' });
             }
         };
         tick();
@@ -983,12 +994,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (S.deckEmpty) { if (isHost()) hostNewDeck(false); return; }
             if (!canAct()) return;
             if (isHost()) hostDrawCard();
-            else p2p.sendToHost({ type: 'action', op: 'draw' });
+            else lk && lk.sendToAll({ type: 'action', op: 'draw' });
         },
         startTimer: () => doTimerStart(),
         stopTimer: () => {
             stopNetTimer();
-            if (isHost()) p2p.hostBroadcast({ type: 'timer', op: 'stop' });
+            if (isHost()) lk && lk.sendToAll({ type: 'timer', op: 'stop' });
         },
         leave: () => {
             p2p && p2p.destroy();
