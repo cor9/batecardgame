@@ -976,11 +976,13 @@ document.addEventListener('DOMContentLoaded', () => {
             connect(false, code);
         });
 
-        const m = location.hash.match(/#join=([a-z0-9]{6})/i);
-        if (m) {
+        const queryCode = new URLSearchParams(location.search).get('join');
+        const hashMatch = location.hash.match(/#join=([a-z0-9]{6})/i);
+        const joinCode = queryCode || (hashMatch && hashMatch[1]);
+        if (joinCode && /^[a-z0-9]{6}$/i.test(joinCode)) {
             $('modeSelection').classList.add('hidden');
             showOnlineScreen('home');
-            $('joinCodeInput').value = m[1].toLowerCase();
+            $('joinCodeInput').value = joinCode.toLowerCase();
             $('connectStatus').textContent = 'Link loaded — enter your name and hit Join.';
             $('onlineNameInput').focus();
         }
