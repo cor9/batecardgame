@@ -7,6 +7,7 @@ class CardGame {
         this.drawnCount = 0;
         this.instructions = this.createInstructions();
         this.gameMode = null; // 'group' or 'solo'
+        this.soloCamStream = null;
         this.initializeElements();
         this.bindEvents();
     }
@@ -302,6 +303,9 @@ class CardGame {
             }
             this.backToModeSelection();
         });
+
+        // Solo mode local cam (self-view only, no room)
+        document.getElementById('soloCamBtn').addEventListener('click', () => this.toggleSoloCam());
     }
 
     drawCard() {
@@ -431,10 +435,50 @@ if (this.gameMode === 'solo' || this.gameMode === 'group') {
 
         // Update deck count
         this.deckCount.textContent = this.deck.length;
+
+        // Solo mode can show your own cam locally (never anyone else's slot)
+        document.getElementById('soloCamBtn').classList.toggle('hidden', mode !== 'solo');
+        if (mode !== 'solo') this.stopSoloCam();
+    }
+
+    stopSoloCam() {
+        if (this.soloCamStream) {
+            this.soloCamStream.getTracks().forEach((t) => t.stop());
+            this.soloCamStream = null;
+        }
+        const tile = document.querySelector('[data-peer="solo-cam"]');
+        if (tile) tile.remove();
+        const btn = document.getElementById('soloCamBtn');
+        if (btn) btn.textContent = '📹 Cam';
+    }
+
+    async toggleSoloCam() {
+        const btn = document.getElementById('soloCamBtn');
+        if (this.soloCamStream) { this.stopSoloCam(); return; }
+        try {
+            this.soloCamStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        } catch (err) {
+            btn.textContent = '📹 blocked';
+            setTimeout(() => (btn.textContent = '📹 Cam'), 2000);
+            return;
+        }
+        const grid = document.getElementById('videoGridGame');
+        let tile = grid.querySelector('[data-peer="solo-cam"]');
+        if (!tile) {
+            tile = document.createElement('div');
+            tile.className = 'video-tile';
+            tile.dataset.peer = 'solo-cam';
+            tile.innerHTML = '<video autoplay playsinline muted></video><span class="tile-label">You</span>';
+            grid.appendChild(tile);
+        }
+        tile.querySelector('video').srcObject = this.soloCamStream;
+        btn.textContent = '📹 On! (tap to hide)';
     }
 
     backToModeSelection() {
         if (window.__onlineActive) return; // online mode owns the back button
+        this.stopSoloCam();
+        document.getElementById('soloCamBtn').classList.add('hidden');
         // Hide game screen and show mode selection
         this.gameScreen.classList.add('hidden');
         this.gameScreen.classList.remove('visible');
